@@ -1,0 +1,72 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#floating-elements {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+}
+
+#info {
+  position: absolute;
+  bottom: 8px;
+  line-height: 0;
+  left: 24px;
+  display: flex;
+}
+
+#long-info {
+  position: absolute;
+  bottom: 8px;
+  line-height: 0;
+  left: 24px;
+  display: flex;
+  color: red;
+}
+
+#info p:not(:last-of-type)::after {
+  content: "•";
+  padding: 0 8px;
+}
+
+.floating-element {
+  position: absolute;
+  width: 200px;
+  height: auto;
+  transform: translate(0) scale(100%);
+  transition: transform 0.2s, top 0.2s, left 0.2s;
+}
+
+img.floating-element  {
+  visibility: hidden;
+}
+
+.floating-element:hover {
+  z-index: 2;
+  transform: translate(0) scale(120%);
+  cursor: pointer;
+}
+
+.centered {
+  position: absolute;
+  width: 200px;
+  height: auto;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) scale(250%);
+  z-index: 3;
+  transition: transform 0.2s, top 0.2s, left 0.2s;
+}
+
+.centered:hover {
+  cursor: pointer;
+}
