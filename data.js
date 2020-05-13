@@ -109,7 +109,7 @@ Costume,octagram,Russia,Europe/Asia,1900s,"cotton, lace",57x62 cm (skirt); 47x12
 Costume,rhomb,"Smolensk, Russia",Europe,19th century,"broadcloth, chintz, cotton, woollen and cotton thread","lenght. sarafan 105, shirt 50",The State Hermitage Museum,https://www.hermitagemuseum.org/wps/portal/hermitage/digital-collection/12.%20costumes%2C%20uniform%2C%20accessories/1521408/!ut/p/z1/jY_LDoIwEEV_BfZqH1J029RERLGG-MBuTEMAm0hLKLjw622MKxPR2U1y7pw7QIAMCC3vqpKdMlre3H4W4YVTGqIpgzFnZAEpT3ckZdslRAE4vQD4ZSgE4p_8ACCGz8e_BO4D3CYsqYBoZHcdK10akCE88XJju74u7MjrtSpNW488meeFtaZVhXUMwSiAc1dRfEhW65mT7EnE-ZFhFryBgZpNfcgemwgq6vtP_BBL4Q!!/dz/d5/L2dBISEvZ0FBIS9nQSEh/?lng=en,
 Blouse,octagram,"Telemark, Norway",Europe,1830-1870,"cotton, wool",164 x 43 cm,Victoria & Albert Museum,http://collections.vam.ac.uk/item/O88317/blouse-unknown/,telemark_vna
 Cover,octagram,Iran,Asia,18th century,"cotton, silk",135 x 149 cm,The David Collection,http://www.davidmus.dk/en/collections/islamic/materials/textiles/art/37-1969,iran_davidcollection
-Cushion cover,octagram,Ionia,Europe,1700-1800,"linen, silk",45 x 45 cm,Victoria & Albert Museum,http://collections.vam.ac.uk/item/O117776/cushion-cover-unknown/,
+Cushion cover,octagram,Ionia,Europe,1700-1800,"linen, silk",45 x 45 cm,Victoria & Albert Museum,http://collections.vam.ac.uk/item/O117776/cushion-cover-unknown/,ionian_vna
 Quilt,octagram,"New England, United States",North America,1815–1825,glazed wool,254 x 254 cm,American Folk Art Museum,http://collection.folkartmuseum.org/objects/411/center-star-quilt?ctx=2f038b7c-6ebd-402b-84a2-dad016923f71&idx=70,
 Sampler,octagram,Mexico,Central America,1850,linen,76 x 35 cm,Victoria & Albert Museum,http://collections.vam.ac.uk/item/O360120/sampler-unknown/,mexico_va`;
 
@@ -163,12 +163,12 @@ function addCentered(element, item) {
 }
 
 function removeCentered(element) {
-    element.classList.remove("centered");
-    element.classList.add("floating-element");
-    clearLongInfo();
-    document.querySelectorAll(".floating-element").forEach(function (bgElement) {
-      bgElement.classList.remove("blur");
-    });
+  element.classList.remove("centered");
+  element.classList.add("floating-element");
+  clearLongInfo();
+  document.querySelectorAll(".floating-element").forEach(function (bgElement) {
+    bgElement.classList.remove("blur");
+  });
 }
 
 function getImageFromCSV(item) {
@@ -204,12 +204,7 @@ function getShortInfoFromCSV(item) {
 }
 
 function getLongInfoFromCSV(item) {
-  var itemLongInfo = [
-    item.Location,
-    item.Dating,
-    item.Material,
-    item.Size
-  ];
+  var itemLongInfo = [item.Location, item.Dating, item.Material, item.Size];
   var longInfoContainer = document.getElementById("long-info");
   itemLongInfo.forEach(function (element) {
     var info = document.createElement("p");
@@ -221,7 +216,7 @@ function getLongInfoFromCSV(item) {
   var creditText = document.createTextNode(item.Credit);
   creditLink.appendChild(creditText);
   creditLink.href = item.Link;
-  creditLink.target ="_blank";
+  creditLink.target = "_blank";
   longInfoContainer.appendChild(creditLink);
 }
 
