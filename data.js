@@ -130,15 +130,13 @@ data.data.forEach(function (item) {
   });
 
   function myOtherListener(event) {
-    clearLongInfo();
-    element.classList.toggle("centered");
-    element.classList.toggle("floating-element");
+    removeCentered(element);
     element.removeEventListener("click", myOtherListener);
     element.addEventListener("click", myListener);
   }
 
   function myListener(event) {
-    toggleCentered(element, item);
+    addCentered(element, item);
     element.removeEventListener("click", myListener);
     element.addEventListener("click", myOtherListener);
   }
@@ -155,14 +153,22 @@ data.data.forEach(function (item) {
   }
 });
 
-function toggleCentered(element, item) {
-  console.log("center toggled")
-  element.classList.toggle("floating-element");
-  element.classList.toggle("centered");
+function addCentered(element, item) {
+  element.classList.remove("floating-element");
+  element.classList.add("centered");
   getLongInfoFromCSV(item);
   document.querySelectorAll(".floating-element").forEach(function (bgElement) {
-    bgElement.classList.add(".blur");
+    bgElement.classList.add("blur");
   });
+}
+
+function removeCentered(element) {
+    element.classList.remove("centered");
+    element.classList.add("floating-element");
+    clearLongInfo();
+    document.querySelectorAll(".floating-element").forEach(function (bgElement) {
+      bgElement.classList.remove("blur");
+    });
 }
 
 function getImageFromCSV(item) {
