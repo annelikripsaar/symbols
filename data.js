@@ -148,7 +148,7 @@ data.data.forEach(function (item) {
   if (element.tagName.toLowerCase() === "img") {
     element.onload = function () {
       positionElement(element, elementContainer);
-      element.style.visibility = "visible";
+      element.style.display = "block";
     };
   } else {
     positionElement(element, elementContainer);
