@@ -129,9 +129,7 @@ data.data.forEach(function (item) {
     clearInfo();
   });
   element.addEventListener("click", function () {
-    element.classList.toggle("floating-element");
-    element.classList.toggle("centered");
-    getLongInfoFromCSV(item);
+    toggleCentered(element, item);
   });
   elementContainer.appendChild(element);
   if (element.tagName.toLowerCase() === "img") {
@@ -143,6 +141,15 @@ data.data.forEach(function (item) {
     positionElement(element, elementContainer);
   }
 });
+
+function toggleCentered(element) {
+  element.classList.toggle("floating-element");
+  element.classList.toggle("centered");
+  getLongInfoFromCSV(item);
+  document.querySelectorAll(".floating-element").forEach(function (bgElement) {
+    bgElement.classList.add(".blur");
+  });
+}
 
 function getImageFromCSV(item) {
   var image = document.createElement("img");
@@ -190,8 +197,8 @@ function getLongInfoFromCSV(item) {
     var info = document.createElement("p");
     var infoText = document.createTextNode(element);
     info.appendChild(infoText);
+    longInfoContainer.appendChild(info);
   });
-  longInfoContainer.appendChild(info);
 }
 
 function clearInfo() {
