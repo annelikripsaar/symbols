@@ -5,15 +5,11 @@ Folding chair (bw),double cross,Spain,Europe,15th century,"walnut, ivory, steel,
 Coffret,double cross,Italy,Europe,13th century,"walnut, glass",24.8 x 50.2 x 21.3 cm,The Met,https://www.metmuseum.org/art/collection/search/466625?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+1000-1400&amp;what=Woodwork&amp;ft=*&amp;offset=0&amp;rpp=20&amp;pos=12,
 Mosaic glass fragment,double cross,Egypt,Africa,4th–5th century,glass,2.6 x 2.4 x 0.4 cm,The Met,https://www.metmuseum.org/art/collection/search/477119?searchField=All&amp;sortBy=Relevance&amp;ft=Coptic&amp;offset=40&amp;rpp=20&amp;pos=47,
 Fragment of a sanctuary screen,"double cross, octagram",Egypt,Africa,6th–8th century,wood,19.5 x 100 x 4.2 cm,The Met,https://www.metmuseum.org/art/collection/search/473023?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+500-1000&amp;what=Woodwork&amp;ft=*&amp;offset=0&amp;rpp=20&amp;pos=5,fragment_coptic
-"Jar with carp in lotus pond
-mid-16th century",double cross,China,Asia,16th century,porcelain,23.2 cm,The Met,https://www.metmuseum.org/art/collection/search/42549,
-"Pierced Window Screen
-second half 16th century",octagram,India,Asia,16th century,red sandstone,130.3 x 185.4 cm,The Met,https://www.metmuseum.org/art/collection/search/453344?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+1400-1600&amp;what=Furniture&amp;ao=on&amp;ft=*&amp;offset=240&amp;rpp=20&amp;pos=259,
-Cylinder seal and modern impression: royal worshiper before a god on a throne; human-headed bulls below,double cross,Syria,Asia,ca. 1820–1730 B.C.,hematite,2 cm,The Met,https://www.metmuseum.org/art/collection/search/327459?searchField=All&amp;sortBy=Relevance&amp;when=2000-1000+B.C.&amp;what=Furniture&amp;ao=on&amp;ft=*&amp;offset=20&amp;rpp=20&amp;pos=28,
-"Eight-Pointed Star Tunic
-1460–1540",octagram,Peru,South-America,1460–1540,"camelid hair, cotton",75.6 × 94 cm,The Met,https://www.metmuseum.org/art/collection/search/308120,
-"Textile Fragment
-14th century",octagram,Spain,Europe,14th century,silk,36.3 x 102 cm,The Met,https://www.metmuseum.org/art/collection/search/448232,
+Jar with carp in lotus pond,double cross,China,Asia,16th century,porcelain,23.2 cm,The Met,https://www.metmuseum.org/art/collection/search/42549,
+Pierced window screen,octagram,India,Asia,16th century,red sandstone,130.3 x 185.4 cm,The Met,https://www.metmuseum.org/art/collection/search/453344?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+1400-1600&amp;what=Furniture&amp;ao=on&amp;ft=*&amp;offset=240&amp;rpp=20&amp;pos=259,
+Cylinder seal,double cross,Syria,Asia,ca. 1820–1730 B.C.,hematite,2 cm,The Met,https://www.metmuseum.org/art/collection/search/327459?searchField=All&amp;sortBy=Relevance&amp;when=2000-1000+B.C.&amp;what=Furniture&amp;ao=on&amp;ft=*&amp;offset=20&amp;rpp=20&amp;pos=28,
+Eight-Pointed Star Tunic,octagram,Peru,South-America,1460–1540,"camelid hair, cotton",75.6 × 94 cm,The Met,https://www.metmuseum.org/art/collection/search/308120,
+Textile Fragment,octagram,Spain,Europe,14th century,silk,36.3 x 102 cm,The Met,https://www.metmuseum.org/art/collection/search/448232,
 "Coptic Textile Fragment
 ",double cross,Egypt,Africa,3rd–5th century,"linen, wool",53 x 28.6 cm,The Met,https://www.metmuseum.org/art/collection/search/443300,
 Panel,octagram,Egypt,Africa,8th century,"fig, bone",194.3 x 47.6 cm,The Met,https://www.metmuseum.org/art/collection/search/449211,
@@ -33,11 +29,11 @@ Terracotta krater,double cross,Cyprus,,ca. 750–740 B.C.,,130.8 cm,The Met,http
 Jug,double cross,Cyprus,,750–600 B.C.,,26 cm,The Met,https://www.metmuseum.org/art/collection/search/240129?searchField=All&amp;sortBy=Relevance&amp;when=1000+B.C.-A.D.+1&amp;ao=on&amp;showOnly=openAccess&amp;ft=*&amp;offset=880&amp;rpp=80&amp;pos=938,
 Terracotta dish,double cross,Italy,Europe,ca. 330–300 B.C.,,4.4 x 27.6 cm,The Met,https://www.metmuseum.org/art/collection/search/248189?searchField=All&amp;sortBy=Relevance&amp;when=1000+B.C.-A.D.+1&amp;ao=on&amp;showOnly=openAccess&amp;ft=*&amp;offset=1200&amp;rpp=80&amp;pos=1239,
 Textile Fragment,double cross,Egypt,Africa,4th–5th century,,6.4 x 22.2 cm,The Met,https://www.metmuseum.org/art/collection/search/456914?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+1-500&amp;ao=on&amp;showOnly=openAccess&amp;ft=*&amp;offset=1520&amp;rpp=80&amp;pos=1584,
-Tunic,rhomb,Egypt,Africa,6th–7th century,,104.1 x 154 cm,The Met,https://www.metmuseum.org/art/collection/search/446259?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+500-1000&amp;ao=on&amp;showOnly=openAccess&amp;ft=*&amp;offset=80&amp;rpp=80&amp;pos=89,
+Tunic,rhomb,Egypt,Africa,6th–7th century,,104.1 x 154 cm,The Met,https://www.metmuseum.org/art/collection/search/446259?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+500-1000&amp;ao=on&amp;showOnly=openAccess&amp;ft=*&amp;offset=80&amp;rpp=80&amp;pos=89,tunic_egypt
 Bath Scraper,octagram,Iran,Asia,12th–13th century,,,The Met,https://www.metmuseum.org/art/collection/search/447934?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+1000-1400&amp;ao=on&amp;showOnly=openAccess&amp;ft=*&amp;offset=1600&amp;rpp=80&amp;pos=1677,bath-scraper_iran
 Tapestry Bag,rhomb,Peru,South-America,7th century,,11.43 x 12.07 cm,The Met,https://www.metmuseum.org/art/collection/search/307845?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+500-1000&amp;ao=on&amp;showOnly=openAccess&amp;ft=*&amp;offset=6320&amp;rpp=80&amp;pos=6324,
 Panel,rhomb,Peru,South-America,7th century,,96.52 x 231.14 cm,The Met,https://www.metmuseum.org/art/collection/search/308285?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+500-1000&amp;ao=on&amp;showOnly=openAccess&amp;ft=*&amp;offset=6320&amp;rpp=80&amp;pos=6362,
-Sash Fragment,rhomb,Nasca,,7th century,,3.81 x 403.23 cm,The Met,https://www.metmuseum.org/art/collection/search/308020?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+500-1000&amp;ao=on&amp;showOnly=openAccess&amp;ft=*&amp;offset=3360&amp;rpp=80&amp;pos=3411,
+Sash Fragment,rhomb,Nasca,,7th century,,3.81 x 403.23 cm,The Met,https://www.metmuseum.org/art/collection/search/308020?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+500-1000&amp;ao=on&amp;showOnly=openAccess&amp;ft=*&amp;offset=3360&amp;rpp=80&amp;pos=3411,sash_nasca
 Openwork Belt Mount,double cross,Germany,Europe,500–700,,11.4 x 7.9 x 1.6 cm,The Met,https://www.metmuseum.org/art/collection/search/465807?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+500-1000&amp;ao=on&amp;showOnly=openAccess&amp;ft=*&amp;offset=2640&amp;rpp=80&amp;pos=2697,
 Bowl,double cross,Iran,Asia,9th century,,H 9.5 cm D 25.5 cm,The Met,https://www.metmuseum.org/art/collection/search/449800?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+500-1000&amp;ao=on&amp;showOnly=openAccess&amp;ft=*&amp;offset=2560&amp;rpp=80&amp;pos=2632,
 Brocade Textile,octagram,Italy,Europe,14th century,,14.9 × 12.7 cm,The Met,https://www.metmuseum.org/art/collection/search/463253?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+1000-1400&amp;ao=on&amp;showOnly=openAccess&amp;ft=*&amp;offset=2800&amp;rpp=80&amp;pos=2852,
@@ -67,14 +63,14 @@ Fragment,rhomb,Sweden,Europe,18th century,,32.4 x 4.4 cm,The Met,https://www.met
 Sampler,octagram,Spain,Europe,18th century,,45.1 × 41.9 cm,The Met,https://www.metmuseum.org/art/collection/search/228536?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+1600-1800&amp;where=Spain&amp;ao=on&amp;showOnly=openAccess&amp;ft=*&amp;offset=720&amp;rpp=80&amp;pos=737,
 Fragment,octagram,Italy,Europe,17th–18th century,,38.7 x 23.5 cm,The Met,https://www.metmuseum.org/art/collection/search/216728?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+1600-1800&amp;where=Tuscany&amp;ao=on&amp;showOnly=openAccess&amp;ft=*&amp;offset=0&amp;rpp=80&amp;pos=50,fragment_italy
 Textile Fragment,double cross,Turkey,,17th century,,52 x 13 cm,The Met,https://www.metmuseum.org/art/collection/search/448456?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+1600-1800&amp;where=Turkey&amp;ao=on&amp;showOnly=openAccess&amp;ft=*&amp;offset=0&amp;rpp=80&amp;pos=36,
-Salt Bag,rhomb,Iran,,19th century,,48 x 36 cm,The Met,https://www.metmuseum.org/art/collection/search/681543?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+1800-1900&amp;where=Iran&amp;ao=on&amp;showOnly=openAccess&amp;ft=*&amp;offset=0&amp;rpp=80&amp;pos=70,
+Salt Bag,rhomb,Iran,,19th century,,36 x 48 cm,The Met,https://www.metmuseum.org/art/collection/search/681543?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+1800-1900&amp;where=Iran&amp;ao=on&amp;showOnly=openAccess&amp;ft=*&amp;offset=0&amp;rpp=80&amp;pos=70,salt-bag_iran
 Band,octagram,Hungary,,19th century,,64.8 x 14.6 cm,The Met,https://www.metmuseum.org/art/collection/search/221384?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+1800-1900&amp;where=Hungary&amp;ao=on&amp;showOnly=openAccess&amp;ft=*&amp;offset=0&amp;rpp=80&amp;pos=26,
 Towel cover,octagram,Denmark,,19th century,,139.7 x 38.1 cm,The Met,https://www.metmuseum.org/art/collection/search/218625?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+1800-1900&amp;where=Denmark&amp;ao=on&amp;showOnly=openAccess&amp;ft=*&amp;offset=0&amp;rpp=80&amp;pos=56,
 Firebag,octagram,Canada,,ca. 1820,,53.3 x 23.5 cm,The Met,https://www.metmuseum.org/art/collection/search/319214?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+1800-1900&amp;where=Canada&amp;ao=on&amp;showOnly=openAccess&amp;ft=*&amp;offset=0&amp;rpp=80&amp;pos=31,firebag_ojibwa
 Double Flour Bag,octagram,Iran,,19th century,,102 x 142 cm,The Met,https://www.metmuseum.org/art/collection/search/681582?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+1800-1900&amp;where=Iran&amp;ao=on&amp;showOnly=openAccess&amp;ft=*&amp;offset=0&amp;rpp=80&amp;pos=80,
 Sampler,octagram,Mexico,,1855,,64.8 x 41.9 cm,The Met,https://www.metmuseum.org/art/collection/search/227885?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+1800-1900&amp;where=Mexico&amp;ao=on&amp;showOnly=openAccess&amp;ft=*&amp;offset=0&amp;rpp=80&amp;pos=21,
 Fragment,rhomb,Romania,,19th century,,15.2 x 6.4 cm,The Met,https://www.metmuseum.org/art/collection/search/216583?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+1800-1900&amp;where=Romania&amp;ao=on&amp;showOnly=openAccess&amp;ft=*&amp;offset=0&amp;rpp=80&amp;pos=3,
-Blouse,rhomb,Romania,,19th century,,,The Met,https://www.metmuseum.org/art/collection/search/98438?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+1800-1900&amp;where=Romania&amp;ao=on&amp;showOnly=openAccess&amp;ft=*&amp;offset=0&amp;rpp=80&amp;pos=5,
+Blouse,rhomb,Romania,,19th century,,,The Met,https://www.metmuseum.org/art/collection/search/98438?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+1800-1900&amp;where=Romania&amp;ao=on&amp;showOnly=openAccess&amp;ft=*&amp;offset=0&amp;rpp=80&amp;pos=5,blouse_romania
 Apron,rhomb,Romania,,19th century,,,The Met,https://www.metmuseum.org/art/collection/search/102377?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+1800-1900&amp;where=Romania&amp;ao=on&amp;showOnly=openAccess&amp;ft=*&amp;offset=0&amp;rpp=80&amp;pos=7,
 Apron,rhomb,Romania,,19th century,,,The Met,https://www.metmuseum.org/art/collection/search/98423?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+1800-1900&amp;where=Romania&amp;ao=on&amp;showOnly=openAccess&amp;ft=*&amp;offset=0&amp;rpp=80&amp;pos=6,
 Ensemble,double cross,Romania,,19th century,,,The Met,https://www.metmuseum.org/art/collection/search/159148?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+1800-1900&amp;where=Romania&amp;ao=on&amp;showOnly=openAccess&amp;ft=*&amp;offset=0&amp;rpp=80&amp;pos=12,
@@ -93,25 +89,25 @@ Bed curtain border,double cross,Russia,,19th century,,50.8 x 160 cm,The Met,http
 Carpet,octagram,Turkey,,1870,,L. 35 in. x W. 23 in.,The Met,https://www.metmuseum.org/art/collection/search/456977?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+1800-1900&amp;where=Turkey&amp;ao=on&amp;showOnly=openAccess&amp;ft=*&amp;offset=80&amp;rpp=80&amp;pos=84,
 Carpet,octagram,Turkey,,19th century,,228.6 x 162.6 cm,The Met,https://www.metmuseum.org/art/collection/search/452588?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+1800-1900&amp;where=Turkey&amp;ao=on&amp;showOnly=openAccess&amp;ft=*&amp;offset=0&amp;rpp=80&amp;pos=30,
 Towel border,octagram,Russia,,1800–1850,,35.6 x 16.5 cm,The Met,https://www.metmuseum.org/art/collection/search/175588?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+1800-1900&amp;where=Russia&amp;ao=on&amp;showOnly=openAccess&amp;ft=*&amp;offset=160&amp;rpp=80&amp;pos=164,
-Fragment,octagram,Egypt,,800–1099,,62.8 x 50.6 cm,Textile Museum of Candada,https://collections.textilemuseum.ca/collection/4962/,
-Prayer Rug,octagram,Azerbaijan,,1880–1900,,122 x 140 cm,Textile Museum of Candada,https://collections.textilemuseum.ca/collection/14072/fd1186a963bd384404b4f8101e564cad,
-Ceremonial Mat,octagram,Indonesia,,1900–1930,,48 x 48 cm,Textile Museum of Candada,https://collections.textilemuseum.ca/collection/9776/fd1186a963bd384404b4f8101e564cad,
-Bag,rhomb,Myanmar,,1900–1950,,27 x 28 cm,Textile Museum of Candada,https://collections.textilemuseum.ca/collection/1756/fd1186a963bd384404b4f8101e564cad,
-Fragment,octagram,China,,1900–1980,,10 x 26 cm,Textile Museum of Candada,https://collections.textilemuseum.ca/collection/14773/,
-Purse,"octagram, rhomb",Greece,,1900–1940,,19 x 26 cm,Textile Museum of Candada,https://collections.textilemuseum.ca/collection/14711/,
-Purse,rhomb,Greece,,1900–1950,,21 x 26 cm,Textile Museum of Candada,https://collections.textilemuseum.ca/collection/5963,
-Dress,rhomb,Macedonia,,1920–1940,,108 x 141 cm,Textile Museum of Candada,https://collections.textilemuseum.ca/collection/3711/,
-Hat,octagram,Romania,,1900–1999,,41 x 11.5 cm,Textile Museum of Candada,https://collections.textilemuseum.ca/collection/11170/,
-Shirt,octagram,Bulgaria,,1940–1960,,98 x 116 cm,Textile Museum of Candada,https://collections.textilemuseum.ca/collection/10672/,
+Fragment,octagram,Egypt,,800–1099,,62.8 x 50.6 cm,Textile Museum of Canada,https://collections.textilemuseum.ca/collection/4962/,
+Prayer Rug,octagram,Azerbaijan,,1880–1900,,122 x 140 cm,Textile Museum of Canada,https://collections.textilemuseum.ca/collection/14072/fd1186a963bd384404b4f8101e564cad,
+Ceremonial Mat,octagram,Indonesia,,1900–1930,,48 x 48 cm,Textile Museum of Canada,https://collections.textilemuseum.ca/collection/9776/fd1186a963bd384404b4f8101e564cad,
+Bag,rhomb,Myanmar,,1900–1950,,27 x 28 cm,Textile Museum of Canada,https://collections.textilemuseum.ca/collection/1756/fd1186a963bd384404b4f8101e564cad,bag_myanmar
+Fragment,octagram,China,,1900–1980,,10 x 26 cm,Textile Museum of Canada,https://collections.textilemuseum.ca/collection/14773/,
+Purse,"octagram, rhomb",Greece,,1900–1940,,19 x 26 cm,Textile Museum of Canada,https://collections.textilemuseum.ca/collection/14711/,purse-orange_greece
+Purse,rhomb,Greece,,1900–1950,,21 x 26 cm,Textile Museum of Canada,https://collections.textilemuseum.ca/collection/5963,purse_greece
+Dress,rhomb,Macedonia,,1920–1940,,108 x 141 cm,Textile Museum of Canada,https://collections.textilemuseum.ca/collection/3711/,
+Hat,octagram,Romania,,1900–1999,,41 x 11.5 cm,Textile Museum of Canada,https://collections.textilemuseum.ca/collection/11170/,
+Shirt,octagram,Bulgaria,,1940–1960,,98 x 116 cm,Textile Museum of Canada,https://collections.textilemuseum.ca/collection/10672/,
 Chest,double cross,Estonia,,1850–1900,,84 cm x 65 cm x 95 cm,Estonian National Museum,https://www.muis.ee/museaalview/483000,
 Sash,octagram,"Rapla, Estonia",Europe,1831,"linen, wool",3.9 x 212 cm,Estonian National Museum,https://www.muis.ee/museaalview/509387,ERM2226
 Costume,octagram,Russia,Europe/Asia,1900s,"cotton, lace",57x62 cm (skirt); 47x124 cm (blouse),The State Hermitage Museum,https://www.hermitagemuseum.org/wps/portal/hermitage/digital-collection/12.%20costumes%2C%20uniform%2C%20accessories/1248586/!ut/p/z1/jY9BDoIwEEWvAnu0BSmybWoiolhDFLEb0xDAJtISCi48vdW4MhGd3STvz_sDGMgBk_wmat4LJfnV7CcWnCnGgTsjMKYELSCm6Q6lZLuErg-OLwB-GQwB-yc_ArDx8_EvgfnA6xKS1IC1vL9MhKwUyF1vahVK90NTascapKhU1zgWL4pSa9WJUj8ZP0RhYCqyD8lqPTeSPYoozYhH_DcwUrNtDvl9E0GBbfsBSm8f5g!!/dz/d5/L2dBISEvZ0FBIS9nQSEh/?lng=en,russia_hermitage
-Costume,rhomb,"Smolensk, Russia",Europe,19th century,"broadcloth, chintz, cotton, woollen and cotton thread","lenght. sarafan 105, shirt 50",The State Hermitage Museum,https://www.hermitagemuseum.org/wps/portal/hermitage/digital-collection/12.%20costumes%2C%20uniform%2C%20accessories/1521408/!ut/p/z1/jY_LDoIwEEV_BfZqH1J029RERLGG-MBuTEMAm0hLKLjw622MKxPR2U1y7pw7QIAMCC3vqpKdMlre3H4W4YVTGqIpgzFnZAEpT3ckZdslRAE4vQD4ZSgE4p_8ACCGz8e_BO4D3CYsqYBoZHcdK10akCE88XJju74u7MjrtSpNW488meeFtaZVhXUMwSiAc1dRfEhW65mT7EnE-ZFhFryBgZpNfcgemwgq6vtP_BBL4Q!!/dz/d5/L2dBISEvZ0FBIS9nQSEh/?lng=en,
 Blouse,octagram,"Telemark, Norway",Europe,1830-1870,"cotton, wool",164 x 43 cm,Victoria & Albert Museum,http://collections.vam.ac.uk/item/O88317/blouse-unknown/,telemark_vna
 Cover,octagram,Iran,Asia,18th century,"cotton, silk",135 x 149 cm,The David Collection,http://www.davidmus.dk/en/collections/islamic/materials/textiles/art/37-1969,iran_davidcollection
 Cushion cover,octagram,Ionia,Europe,1700-1800,"linen, silk",45 x 45 cm,Victoria & Albert Museum,http://collections.vam.ac.uk/item/O117776/cushion-cover-unknown/,ionian_vna
-Quilt,octagram,"New England, United States",North America,1815–1825,glazed wool,254 x 254 cm,American Folk Art Museum,http://collection.folkartmuseum.org/objects/411/center-star-quilt?ctx=2f038b7c-6ebd-402b-84a2-dad016923f71&idx=70,
-Sampler,octagram,Mexico,Central America,1850,linen,76 x 35 cm,Victoria & Albert Museum,http://collections.vam.ac.uk/item/O360120/sampler-unknown/,mexico_va`;
+Sampler,octagram,Mexico,Central America,1850,linen,76 x 35 cm,Victoria & Albert Museum,http://collections.vam.ac.uk/item/O360120/sampler-unknown/,mexico_va
+Sock,rhomb,Croatia,Europe,19th century,wool,,Victoria & Albert Museum,https://collections.vam.ac.uk/item/O358463/sock/,sock_croatia
+Belt,rhomb,"Telemark, Norway",Europe,18th century,wool,200 x 7 cm,Victoria & Albert Museum,https://collections.vam.ac.uk/item/O361370/belt/,belt_norway`;
 
 var data = Papa.parse(csv, { header: true });
 
