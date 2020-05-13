@@ -8,6 +8,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 16px;
+}
+
+@media (min-width: 1600px) {
+  html, body {
+    font-size: 18px;
+  }
 }
 
 body {
@@ -16,10 +23,18 @@ body {
     "Segoe UI Symbol";
 }
 
+a {
+  display: block;
+  text-decoration: none;
+  color: black;
+  padding: 0;
+}
+
 #floating-elements {
   position: relative;
-  height: 100vh;
+  height: 95vh;
   width: 100vw;
+  margin-bottom: auto;
 }
 
 #info {
@@ -28,6 +43,7 @@ body {
   line-height: 0;
   left: 24px;
   display: flex;
+  margin-bottom: 16px;
 }
 
 #long-info {
@@ -36,10 +52,15 @@ body {
   line-height: 0;
   left: 24px;
   display: flex;
-  color: red;
+  margin-bottom: 16px;
 }
 
-#info p:not(:last-of-type)::after {
+#info p, #long-info p {
+  margin: 0;
+}
+
+#info p:not(:last-of-type)::after,
+#long-info p::after {
   content: "•";
   padding: 0 8px;
 }

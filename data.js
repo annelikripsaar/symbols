@@ -128,9 +128,22 @@ data.data.forEach(function (item) {
   element.addEventListener("mouseleave", function () {
     clearInfo();
   });
-  element.addEventListener("click", function () {
+
+  function myOtherListener(event) {
+    clearLongInfo();
+    element.classList.toggle("centered");
+    element.classList.toggle("floating-element");
+    element.removeEventListener("click", myOtherListener);
+    element.addEventListener("click", myListener);
+  }
+
+  function myListener(event) {
     toggleCentered(element, item);
-  });
+    element.removeEventListener("click", myListener);
+    element.addEventListener("click", myOtherListener);
+  }
+
+  element.addEventListener("click", myListener);
   elementContainer.appendChild(element);
   if (element.tagName.toLowerCase() === "img") {
     element.onload = function () {
@@ -142,7 +155,8 @@ data.data.forEach(function (item) {
   }
 });
 
-function toggleCentered(element) {
+function toggleCentered(element, item) {
+  console.log("center toggled")
   element.classList.toggle("floating-element");
   element.classList.toggle("centered");
   getLongInfoFromCSV(item);
@@ -188,9 +202,7 @@ function getLongInfoFromCSV(item) {
     item.Location,
     item.Dating,
     item.Material,
-    item.Size,
-    item.Credit,
-    item.Link,
+    item.Size
   ];
   var longInfoContainer = document.getElementById("long-info");
   itemLongInfo.forEach(function (element) {
@@ -199,10 +211,23 @@ function getLongInfoFromCSV(item) {
     info.appendChild(infoText);
     longInfoContainer.appendChild(info);
   });
+  var creditLink = document.createElement("a");
+  var creditText = document.createTextNode(item.Credit);
+  creditLink.appendChild(creditText);
+  creditLink.href = item.Link;
+  creditLink.target ="_blank";
+  longInfoContainer.appendChild(creditLink);
 }
 
 function clearInfo() {
   var infoContainer = document.getElementById("info");
+  while (infoContainer.firstChild) {
+    infoContainer.removeChild(infoContainer.lastChild);
+  }
+}
+
+function clearLongInfo() {
+  var infoContainer = document.getElementById("long-info");
   while (infoContainer.firstChild) {
     infoContainer.removeChild(infoContainer.lastChild);
   }
