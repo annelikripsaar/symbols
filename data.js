@@ -132,7 +132,7 @@ data.data.forEach(function (item) {
   }
 
   function myListener(event) {
-    addCentered(element, item);
+    addCentered(element, item, elementContainer);
     element.removeEventListener("click", myListener);
     element.addEventListener("click", myOtherListener);
   }
@@ -140,18 +140,28 @@ data.data.forEach(function (item) {
   element.addEventListener("click", myListener);
   elementContainer.appendChild(element);
   if (element.tagName.toLowerCase() === "img") {
+    element.style.opacity = "0";
     element.onload = function () {
       positionElement(element, elementContainer);
-      element.style.display = "block";
+      element.style.opacity = "1";
     };
   } else {
     positionElement(element, elementContainer);
   }
 });
 
-function addCentered(element, item) {
+function addCentered(element, item, container) {
   element.classList.remove("floating-element");
   element.classList.add("centered");
+  var centeredSizeByHeight = (container.offsetHeight / element.offsetHeight);
+  var centeredSizeByWidth = (container.offsetWidth / element.offsetWidth);
+  
+  if (centeredSizeByHeight < centeredSizeByWidth) {
+    element.style.transform = "translate(-50%, -50%) scale(" + (centeredSizeByHeight - 2) + ", " + (centeredSizeByHeight - 2) + ")";
+  } else {
+    element.style.transform = "translate(-50%, -50%) scale(" + (centeredSizeByWidth - 2) + ", " + (centeredSizeByWidth - 2) + ")";
+  }
+  console.log(element.style.transform);
   getLongInfoFromCSV(item);
   document.querySelectorAll(".floating-element").forEach(function (bgElement) {
     bgElement.classList.add("blur");
@@ -161,6 +171,7 @@ function addCentered(element, item) {
 function removeCentered(element) {
   element.classList.remove("centered");
   element.classList.add("floating-element");
+  element.style.transform = "translate(0, 0) scale(1, 1)"
   clearLongInfo();
   document.querySelectorAll(".floating-element").forEach(function (bgElement) {
     bgElement.classList.remove("blur");
