@@ -111,6 +111,8 @@ Belt,rhomb,"Telemark, Norway",Europe,18th century,wool,200 x 7 cm,Victoria & Alb
 
 var data = Papa.parse(csv, { header: true });
 
+var container = document.getElementById("floating-elements");
+
 data.data.forEach(function (item) {
   if (item.File.length > 0) {
     var element = getImageFromCSV(item);
@@ -132,7 +134,7 @@ data.data.forEach(function (item) {
   }
 
   function myListener(event) {
-    addCentered(element, item, elementContainer, zX);
+    addCentered(element, item, elementContainer);
     element.removeEventListener("click", myListener);
     element.addEventListener("click", myOtherListener);
   }
@@ -150,24 +152,13 @@ data.data.forEach(function (item) {
   }
 });
 
-var container = document.getElementById("floating-elements");
-
-var zX = 1;
-container.addEventListener("wheel", function (e) {
-  var dir;
-  dir = e.deltaY > 0 ? 0.05 : -0.05;
-  zX += dir;
-  if (zX < 1) {
-    zX = 1;
-  } else {
-    container.style.transformOrigin = e.pageX + "px " + e.pageY + "px";
-    container.style.transform = "scale(" + zX + ", " + zX + ")";
-  }
-  e.preventDefault();
-  return;
+var panzoom = window.panzoom(container, {
+  maxScale: 5
 });
 
-function addCentered(element, item, container, zoom) {
+container.addEventListener('wheel', panzoom.zoomWithWheel)
+
+function addCentered(element, item, container, zoom = 1) {
   element.classList.remove("floating-element");
   element.classList.add("centered");
 
