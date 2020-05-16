@@ -161,6 +161,9 @@ data.data.forEach(function (item, index) {
     element.onload = function () {
       positionElement(element, container);
       element.style.opacity = "1";
+      if (activeElement) {
+        element.classList.add("blur");
+      }
     };
   } else {
     positionElement(element, container);
@@ -172,8 +175,6 @@ var panzoom = Panzoom(container, {
   contain: "outside",
   cursor: "crosshair",
 });
-
-console.log(window.panzoom);
 
 container.addEventListener("wheel", panzoom.zoomWithWheel);
 
