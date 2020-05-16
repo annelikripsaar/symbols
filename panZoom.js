@@ -26,7 +26,7 @@
      */
     function createPanZoom(domElement, options) {
       options = options || {}
-    
+      console.log(options);
       var domController = options.controller
     
       if (!domController) {
@@ -350,7 +350,6 @@
         wheel.removeWheelListener(domElement, onMouseWheel)
         owner.removeEventListener('mousedown', onMouseDown)
         owner.removeEventListener('keydown', onKeyDown)
-        owner.removeEventListener('dblclick', onDoubleClick)
         if (frameAnimation) {
           window.cancelAnimationFrame(frameAnimation)
           frameAnimation = 0
@@ -366,7 +365,6 @@
     
       function listenForEvents() {
         owner.addEventListener('mousedown', onMouseDown)
-        owner.addEventListener('dblclick', onDoubleClick)
         owner.addEventListener('touchstart', onTouch)
         owner.addEventListener('keydown', onKeyDown)
         wheel.addWheelListener(owner, onMouseWheel)
@@ -529,13 +527,6 @@
       function getPinchZoomLength(finger1, finger2) {
         return Math.sqrt((finger1.clientX - finger2.clientX) * (finger1.clientX - finger2.clientX) +
           (finger1.clientY - finger2.clientY) * (finger1.clientY - finger2.clientY))
-      }
-    
-      function onDoubleClick(e) {
-        smoothZoom(e.clientX, e.clientY, zoomDoubleClickSpeed)
-    
-        e.preventDefault()
-        e.stopPropagation()
       }
     
       function onMouseDown(e) {

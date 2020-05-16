@@ -31,6 +31,11 @@ a {
   padding: 0;
 }
 
+.pan-container {
+  height: 100vh;
+  width: 100vw;
+}
+
 #floating-elements {
   position: relative;
   height: 95vh;
@@ -69,7 +74,7 @@ a {
 
 .floating-element {
   position: absolute;
-  width: auto;
+  height: 100px;
   -webkit-transform: translate(0) scale(1, 1);
   -moz-transform: translate(0) scale(1, 1);
   -ms-transform: translate(0) scale(1, 1);
@@ -77,12 +82,6 @@ a {
   transform: translate(0) scale(1, 1);
   transition: all 0.2s;
 }
-
-img.floating-element {
-  height: 100px;
-  transition: all 0.2s;
-}
-
 .floating-element:hover {
   z-index: 2;
   -webkit-transform: translate(0) scale(1.2, 1.2) !important;
@@ -94,10 +93,10 @@ img.floating-element {
 }
 
 .centered {
-  position: absolute;
+  position: fixed;
   height: 100px;
-  left: 50% !important;
   top: 50% !important;
+  left: 50% !important;
   z-index: 3;
   transition: all 0.2s;
 }
@@ -110,4 +109,32 @@ img.floating-element {
   -webkit-filter: blur(14px);
   filter: blur(14px);
   transition: all 0.2s;
+  pointer-events: none;
+}
+
+.highlight {
+  mix-blend-mode: soft-light;
+  animation-name: fade-in-out;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: backwards;
+}
+
+@keyframes fade-in-out {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
 }

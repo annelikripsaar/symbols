@@ -109,88 +109,160 @@ Sampler,octagram,Mexico,Central America,1850,linen,76 x 35 cm,Victoria & Albert 
 Sock,rhomb,Croatia,Europe,19th century,wool,,Victoria & Albert Museum,https://collections.vam.ac.uk/item/O358463/sock/,sock_croatia
 Belt,rhomb,"Telemark, Norway",Europe,18th century,wool,200 x 7 cm,Victoria & Albert Museum,https://collections.vam.ac.uk/item/O361370/belt/,belt_norway`;
 
+var activeElement;
+
 var data = Papa.parse(csv, { header: true });
 
 var container = document.getElementById("floating-elements");
 
-data.data.forEach(function (item) {
+container.addEventListener("click", function () {
+  if (activeElement) {
+    removeCentered(activeElement);
+    activeElement = null;
+  }
+});
+
+window.addEventListener("keydown", function () {
+  if (event.keyCode !== 27) {
+    return;
+  }
+
+  if (activeElement) {
+    removeCentered(activeElement);
+    activeElement = null;
+  }
+});
+
+data.data.forEach(function (item, index) {
   if (item.File.length > 0) {
     var element = getImageFromCSV(item);
   } else {
     var element = getNameFromCSV(item);
   }
-  var elementContainer = document.getElementById("floating-elements");
+
+  element.id = index;
+
   element.addEventListener("mouseenter", function () {
     getShortInfoFromCSV(item);
   });
+
   element.addEventListener("mouseleave", function () {
     clearInfo();
   });
 
-  function myOtherListener(event) {
-    removeCentered(element);
-    element.removeEventListener("click", myOtherListener);
-    element.addEventListener("click", myListener);
-  }
+  element.addEventListener("click", function (event) {
+    event.stopPropagation();
+    addCentered(element, item);
+    isActiveElement = true;
+  });
 
-  function myListener(event) {
-    addCentered(element, item, elementContainer);
-    element.removeEventListener("click", myListener);
-    element.addEventListener("click", myOtherListener);
-  }
-
-  element.addEventListener("click", myListener);
-  elementContainer.appendChild(element);
+  container.appendChild(element);
   if (element.tagName.toLowerCase() === "img") {
     element.style.opacity = "0";
     element.onload = function () {
-      positionElement(element, elementContainer);
+      positionElement(element, container);
       element.style.opacity = "1";
     };
   } else {
-    positionElement(element, elementContainer);
+    positionElement(element, container);
   }
 });
 
-var panzoom = window.panzoom(container, {
-  maxScale: 5
+var panzoom = Panzoom(container, {
+  maxScale: 5,
+  contain: "outside",
+  cursor: "crosshair",
 });
 
-container.addEventListener('wheel', panzoom.zoomWithWheel)
+console.log(window.panzoom);
 
-function addCentered(element, item, container, zoom = 1) {
-  element.classList.remove("floating-element");
-  element.classList.add("centered");
+container.addEventListener("wheel", panzoom.zoomWithWheel);
 
-  var centeredSizeByHeight = container.offsetHeight / element.offsetHeight;
-  var centeredSizeByWidth = container.offsetWidth / element.offsetWidth;
+function addCentered(element, item) {
+  element.style.display = "none";
+
+  var newElement = document.createElement("img");
+  var highlight = document.createElement("img");
+
+  newElement.dataset.original = element.id;
+
+  newElement.src = element.src;
+  highlight.src = "images/" + item.File + "_highlight.svg";
+
+  originalLeft = element.style.left;
+  originalTop = element.style.top;
+  newElement.style.left = originalLeft;
+  newElement.style.top = originalTop;
+
+  newElement.classList.add("floating-element");
+
+  document.body.appendChild(newElement);
+  document.body.appendChild(highlight);
+
+  var centeredSizeByHeight = window.innerHeight / newElement.offsetHeight;
+  var centeredSizeByWidth = window.innerWidth / newElement.offsetWidth;
 
   if (centeredSizeByHeight < centeredSizeByWidth) {
-    element.style.transform =
+    newElement.style.transform =
       "translate(-50%, -50%) scale(" +
-      (centeredSizeByHeight - zoom - 2) +
+      (centeredSizeByHeight - 2) +
       ", " +
-      (centeredSizeByHeight - zoom - 2) +
+      (centeredSizeByHeight - 2) +
+      ")";
+    highlight.style.transform =
+      "translate(-50%, -50%) scale(" +
+      (centeredSizeByHeight - 2) +
+      ", " +
+      (centeredSizeByHeight - 2) +
       ")";
   } else {
-    element.style.transform =
+    newElement.style.transform =
       "translate(-50%, -50%) scale(" +
-      (centeredSizeByWidth - zoom - 2) +
+      (centeredSizeByWidth - 2) +
       ", " +
-      (centeredSizeByWidth - zoom - 2) +
+      (centeredSizeByWidth - 2) +
+      ")";
+    highlight.style.transform =
+      "translate(-50%, -50%) scale(" +
+      (centeredSizeByWidth - 2) +
+      ", " +
+      (centeredSizeByHeight - 2) +
       ")";
   }
+
+  setTimeout(() => {
+    newElement.classList.remove("floating-element");
+    newElement.scrollTop;
+    newElement.classList.add("centered");
+    highlight.classList.add("centered", "highlight");
+
+    document
+      .querySelectorAll(".floating-element")
+      .forEach(function (bgElement) {
+        bgElement.classList.add("blur");
+      });
+  }, 0);
+
+  activeElement = newElement;
   getLongInfoFromCSV(item);
-  document.querySelectorAll(".floating-element").forEach(function (bgElement) {
-    bgElement.classList.add("blur");
-  });
 }
 
 function removeCentered(element) {
+  element.style.transform = "translate(0) scale(0, 0)";
   element.classList.remove("centered");
   element.classList.add("floating-element");
-  element.style.transform = "translate(0, 0) scale(1, 1)";
+
+  var original = document.getElementById(element.dataset.original);
+
+  setTimeout(function () {
+    var highlight = document.querySelector(".highlight");
+    highlight.parentNode.removeChild(highlight);
+    element.parentNode.removeChild(element);
+    original.style.display = "block";
+  }, 0);
+
   clearLongInfo();
+
   document.querySelectorAll(".floating-element").forEach(function (bgElement) {
     bgElement.classList.remove("blur");
   });
