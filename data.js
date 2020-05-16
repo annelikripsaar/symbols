@@ -195,6 +195,11 @@ function addCentered(element, item) {
 
   newElement.classList.add("floating-element");
 
+  newElement.style.opacity = 0;
+  newElement.onload = function () {
+    newElement.style.opacity = 1;
+  };
+
   document.body.appendChild(newElement);
   document.body.appendChild(highlight);
 
