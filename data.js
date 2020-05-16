@@ -69,7 +69,7 @@ Towel cover,octagram,Denmark,,19th century,,139.7 x 38.1 cm,The Met,https://www.
 Firebag,octagram,Canada,,ca. 1820,,53.3 x 23.5 cm,The Met,https://www.metmuseum.org/art/collection/search/319214?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+1800-1900&amp;where=Canada&amp;ao=on&amp;showOnly=openAccess&amp;ft=*&amp;offset=0&amp;rpp=80&amp;pos=31,firebag_ojibwa
 Double Flour Bag,octagram,Iran,,19th century,,102 x 142 cm,The Met,https://www.metmuseum.org/art/collection/search/681582?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+1800-1900&amp;where=Iran&amp;ao=on&amp;showOnly=openAccess&amp;ft=*&amp;offset=0&amp;rpp=80&amp;pos=80,
 Sampler,octagram,Mexico,,1855,,64.8 x 41.9 cm,The Met,https://www.metmuseum.org/art/collection/search/227885?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+1800-1900&amp;where=Mexico&amp;ao=on&amp;showOnly=openAccess&amp;ft=*&amp;offset=0&amp;rpp=80&amp;pos=21,
-Fragment,rhomb,Romania,,19th century,,15.2 x 6.4 cm,The Met,https://www.metmuseum.org/art/collection/search/216583?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+1800-1900&amp;where=Romania&amp;ao=on&amp;showOnly=openAccess&amp;ft=*&amp;offset=0&amp;rpp=80&amp;pos=3,
+Fragment,rhomb,Romania,,19th century,,15.2 x 6.4 cm,The Met,https://www.metmuseum.org/art/collection/search/216583?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+1800-1900&amp;where=Romania&amp;ao=on&amp;showOnly=openAccess&amp;ft=*&amp;offset=0&amp;rpp=80&amp;pos=3,fragment_romania
 Blouse,rhomb,Romania,,19th century,,,The Met,https://www.metmuseum.org/art/collection/search/98438?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+1800-1900&amp;where=Romania&amp;ao=on&amp;showOnly=openAccess&amp;ft=*&amp;offset=0&amp;rpp=80&amp;pos=5,blouse_romania
 Apron,rhomb,Romania,,19th century,,,The Met,https://www.metmuseum.org/art/collection/search/102377?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+1800-1900&amp;where=Romania&amp;ao=on&amp;showOnly=openAccess&amp;ft=*&amp;offset=0&amp;rpp=80&amp;pos=7,
 Apron,rhomb,Romania,,19th century,,,The Met,https://www.metmuseum.org/art/collection/search/98423?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+1800-1900&amp;where=Romania&amp;ao=on&amp;showOnly=openAccess&amp;ft=*&amp;offset=0&amp;rpp=80&amp;pos=6,
@@ -95,7 +95,6 @@ Ceremonial Mat,octagram,Indonesia,,1900–1930,,48 x 48 cm,Textile Museum of Can
 Bag,rhomb,Myanmar,,1900–1950,,27 x 28 cm,Textile Museum of Canada,https://collections.textilemuseum.ca/collection/1756/fd1186a963bd384404b4f8101e564cad,bag_myanmar
 Fragment,octagram,China,,1900–1980,,10 x 26 cm,Textile Museum of Canada,https://collections.textilemuseum.ca/collection/14773/,
 Purse,"octagram, rhomb",Greece,,1900–1940,,19 x 26 cm,Textile Museum of Canada,https://collections.textilemuseum.ca/collection/14711/,purse-orange_greece
-Purse,rhomb,Greece,,1900–1950,,21 x 26 cm,Textile Museum of Canada,https://collections.textilemuseum.ca/collection/5963,purse_greece
 Dress,rhomb,Macedonia,,1920–1940,,108 x 141 cm,Textile Museum of Canada,https://collections.textilemuseum.ca/collection/3711/,
 Hat,octagram,Romania,,1900–1999,,41 x 11.5 cm,Textile Museum of Canada,https://collections.textilemuseum.ca/collection/11170/,
 Shirt,octagram,Bulgaria,,1940–1960,,98 x 116 cm,Textile Museum of Canada,https://collections.textilemuseum.ca/collection/10672/,
@@ -226,7 +225,7 @@ function addCentered(element, item) {
       "translate(-50%, -50%) scale(" +
       (centeredSizeByWidth - 2) +
       ", " +
-      (centeredSizeByHeight - 2) +
+      (centeredSizeByWidth - 2) +
       ")";
   }
 

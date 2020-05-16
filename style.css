@@ -113,7 +113,6 @@ a {
 }
 
 .highlight {
-  mix-blend-mode: soft-light;
   animation-name: fade-in-out;
   animation-duration: 4s;
   animation-iteration-count: infinite;
