@@ -132,7 +132,7 @@ data.data.forEach(function (item) {
   }
 
   function myListener(event) {
-    addCentered(element, item, elementContainer);
+    addCentered(element, item, elementContainer, zX);
     element.removeEventListener("click", myListener);
     element.addEventListener("click", myOtherListener);
   }
@@ -150,18 +150,45 @@ data.data.forEach(function (item) {
   }
 });
 
-function addCentered(element, item, container) {
+var container = document.getElementById("floating-elements");
+
+var zX = 1;
+container.addEventListener("wheel", function (e) {
+  var dir;
+  dir = e.deltaY > 0 ? 0.05 : -0.05;
+  zX += dir;
+  if (zX < 1) {
+    zX = 1;
+  } else {
+    container.style.transformOrigin = e.pageX + "px " + e.pageY + "px";
+    container.style.transform = "scale(" + zX + ", " + zX + ")";
+  }
+  e.preventDefault();
+  return;
+});
+
+function addCentered(element, item, container, zoom) {
   element.classList.remove("floating-element");
   element.classList.add("centered");
-  var centeredSizeByHeight = (container.offsetHeight / element.offsetHeight);
-  var centeredSizeByWidth = (container.offsetWidth / element.offsetWidth);
-  
+
+  var centeredSizeByHeight = container.offsetHeight / element.offsetHeight;
+  var centeredSizeByWidth = container.offsetWidth / element.offsetWidth;
+
   if (centeredSizeByHeight < centeredSizeByWidth) {
-    element.style.transform = "translate(-50%, -50%) scale(" + (centeredSizeByHeight - 2) + ", " + (centeredSizeByHeight - 2) + ")";
+    element.style.transform =
+      "translate(-50%, -50%) scale(" +
+      (centeredSizeByHeight - zoom - 2) +
+      ", " +
+      (centeredSizeByHeight - zoom - 2) +
+      ")";
   } else {
-    element.style.transform = "translate(-50%, -50%) scale(" + (centeredSizeByWidth - 2) + ", " + (centeredSizeByWidth - 2) + ")";
+    element.style.transform =
+      "translate(-50%, -50%) scale(" +
+      (centeredSizeByWidth - zoom - 2) +
+      ", " +
+      (centeredSizeByWidth - zoom - 2) +
+      ")";
   }
-  console.log(element.style.transform);
   getLongInfoFromCSV(item);
   document.querySelectorAll(".floating-element").forEach(function (bgElement) {
     bgElement.classList.add("blur");
@@ -171,7 +198,7 @@ function addCentered(element, item, container) {
 function removeCentered(element) {
   element.classList.remove("centered");
   element.classList.add("floating-element");
-  element.style.transform = "translate(0, 0) scale(1, 1)"
+  element.style.transform = "translate(0, 0) scale(1, 1)";
   clearLongInfo();
   document.querySelectorAll(".floating-element").forEach(function (bgElement) {
     bgElement.classList.remove("blur");
