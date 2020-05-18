@@ -15,7 +15,6 @@
 
   var panzoomActiveImage = Panzoom(activeElementContainer, {
     maxScale: 5,
-    contain: "inside",
   });
 
   var ESCAPE_KEYCODE = 27;
@@ -120,6 +119,10 @@
 
     panzoomMap.setOptions({
       disableZoom: true,
+    });
+
+    panzoomActiveImage.setOptions({
+      disableZoom: false,
     });
 
     activeImageElement.addEventListener(
@@ -239,6 +242,12 @@
       .forEach(function (bgElement) {
         bgElement.classList.remove("blur");
       });
+
+    panzoomActiveImage.setOptions({
+      disableZoom: true,
+    });
+
+    panzoomActiveImage.reset();
 
     panzoomMap.setOptions({
       disableZoom: false,
