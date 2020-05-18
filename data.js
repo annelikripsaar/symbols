@@ -1,4 +1,9 @@
-var csv = `Name,Tags,Footnote,Location,Group,Dating,Material,Size,Credit,Link,File
+(function () {
+  "use strict";
+
+  window.app = window.app || {};
+
+  var csv = `Name,Tags,Footnote,Location,Group,Dating,Material,Size,Credit,Link,File
 Door,double cross,Double cross info,Spain,Europe,15th–16th century,walnut,191.8 x 72.7 cm,The Met,https://www.metmuseum.org/art/collection/search/470759?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+1400-1600&amp;what=Woodwork&amp;ft=*&amp;offset=60&amp;rpp=20&amp;pos=65,
 Hip-joint armchair,double cross,Double cross info,Spain,Europe,ca. 1480–1500,"walnut, elm, ivory, bone, pewter, silk velvet",92.7 x 61 x 49.5 cm,The Met,https://www.metmuseum.org/art/collection/search/199649?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+1400-1600&amp;what=Woodwork&amp;ft=*&amp;offset=220&amp;rpp=20&amp;pos=237,
 Folding chair (bw),double cross,,Spain,Europe,15th century,"walnut, ivory, steel, bone, leather",96.5 x 62.9 x 45.7 cm,The Met,https://www.metmuseum.org/art/collection/search/196346?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+1400-1600&amp;what=Woodwork&amp;ft=*&amp;offset=260&amp;rpp=20&amp;pos=272,
@@ -108,264 +113,24 @@ Sampler,octagram,Double cross info,Mexico,Central America,1850,linen,76 x 35 cm,
 Sock,rhomb,Double cross info,Croatia,Europe,19th century,wool,,Victoria & Albert Museum,https://collections.vam.ac.uk/item/O358463/sock/,sock_croatia
 Belt,rhomb,Double cross info,"Telemark, Norway",Europe,18th century,wool,200 x 7 cm,Victoria & Albert Museum,https://collections.vam.ac.uk/item/O361370/belt/,belt_norway`;
 
-var activeElement;
-
-var data = Papa.parse(csv, { header: true });
-
-var container = document.getElementById("floating-elements");
-
-container.addEventListener("click", function () {
-  if (activeElement) {
-    removeCentered(activeElement);
-    activeElement = null;
-  }
-});
-
-window.addEventListener("keydown", function () {
-  if (event.keyCode !== 27) {
-    return;
-  }
-
-  if (activeElement) {
-    removeCentered(activeElement);
-    activeElement = null;
-  }
-});
-
-data.data.forEach(function (item, index) {
-  if (item.File.length > 0) {
-    var element = getImageFromCSV(item);
-  } else {
-    var element = getNameFromCSV(item);
-  }
-
-  element.id = index;
-
-  element.addEventListener("mouseenter", function () {
-    getShortInfoFromCSV(item);
-  });
-
-  element.addEventListener("mouseleave", function () {
-    clearInfo();
-  });
-
-  element.addEventListener("click", function (event) {
-    event.stopPropagation();
-    addCentered(element, item);
-    isActiveElement = true;
-  });
-
-  container.appendChild(element);
-  if (element.tagName.toLowerCase() === "img") {
-    element.style.opacity = "0";
-    element.onload = function () {
-      positionElement(element, container);
-      element.style.opacity = "1";
-      if (activeElement) {
-        element.classList.add("blur");
-      }
+  var data = Papa.parse(csv, { header: true }).data.map(function (
+    value,
+    index
+  ) {
+    return {
+      id: index,
+      name: value.Name,
+      tags: value.Tags,
+      footnote: value.Footnote || null,
+      location: value.Location || null,
+      group: value.Group,
+      dating: value.Dating || null,
+      material: value.Material || null,
+      size: value.Size || null,
+      credit: value.Credit,
+      link: value.Link,
+      image: value.File || null,
     };
-  } else {
-    positionElement(element, container);
-  }
-});
-
-var panzoom = Panzoom(container, {
-  maxScale: 5,
-  contain: "outside",
-  cursor: "crosshair",
-});
-
-container.addEventListener("wheel", panzoom.zoomWithWheel);
-
-function addCentered(element, item) {
-  element.style.display = "none";
-
-  var newElement = document.createElement("img");
-  var highlight = document.createElement("img");
-
-  newElement.dataset.original = element.id;
-
-  newElement.src = element.src;
-  highlight.src = "images/" + item.File + "_highlight.svg";
-
-  originalLeft = element.style.left;
-  originalTop = element.style.top;
-  newElement.style.left = originalLeft;
-  newElement.style.top = originalTop;
-
-  newElement.classList.add("floating-element");
-
-  newElement.style.opacity = 0;
-  newElement.onload = function () {
-    newElement.style.opacity = 1;
-  };
-
-  document.body.appendChild(newElement);
-  document.body.appendChild(highlight);
-
-  var centeredSizeByHeight = window.innerHeight / newElement.offsetHeight;
-  var centeredSizeByWidth = window.innerWidth / newElement.offsetWidth;
-
-  if (centeredSizeByHeight < centeredSizeByWidth) {
-    newElement.style.transform =
-      "translate(-50%, -50%) scale(" +
-      (centeredSizeByHeight - 2) +
-      ", " +
-      (centeredSizeByHeight - 2) +
-      ")";
-    highlight.style.transform =
-      "translate(-50%, -50%) scale(" +
-      (centeredSizeByHeight - 2) +
-      ", " +
-      (centeredSizeByHeight - 2) +
-      ")";
-  } else {
-    newElement.style.transform =
-      "translate(-50%, -50%) scale(" +
-      (centeredSizeByWidth - 2) +
-      ", " +
-      (centeredSizeByWidth - 2) +
-      ")";
-    highlight.style.transform =
-      "translate(-50%, -50%) scale(" +
-      (centeredSizeByWidth - 2) +
-      ", " +
-      (centeredSizeByWidth - 2) +
-      ")";
-  }
-
-  setTimeout(() => {
-    newElement.classList.remove("floating-element");
-    newElement.scrollTop;
-    newElement.classList.add("centered");
-    highlight.classList.add("centered", "highlight");
-
-    document
-      .querySelectorAll(".floating-element")
-      .forEach(function (bgElement) {
-        bgElement.classList.add("blur");
-      });
-  }, 0);
-
-  setTimeout(() => {
-    highlight.addEventListener("mouseenter", function () {
-      getFootnoteFromCSV(newElement, item);
-    });
-
-    highlight.addEventListener("mouseleave", function () {
-      clearFootnote();
-    });
-  }, 100);
-
-  activeElement = newElement;
-  getLongInfoFromCSV(item);
-}
-
-function removeCentered(element) {
-  element.style.transform = "translate(0) scale(0, 0)";
-  element.classList.remove("centered");
-  element.classList.add("floating-element");
-
-  var original = document.getElementById(element.dataset.original);
-
-  setTimeout(function () {
-    var highlight = document.querySelector(".highlight");
-    highlight.parentNode.removeChild(highlight);
-    element.parentNode.removeChild(element);
-    original.style.display = "block";
-  }, 0);
-
-  clearLongInfo();
-
-  document.querySelectorAll(".floating-element").forEach(function (bgElement) {
-    bgElement.classList.remove("blur");
   });
-}
-
-function getImageFromCSV(item) {
-  var image = document.createElement("img");
-  image.src = "images/" + item.File + ".png";
-  return image;
-}
-
-function getNameFromCSV(item) {
-  var name = document.createElement("p");
-  var nameText = document.createTextNode(item.Name);
-  name.appendChild(nameText);
-  return name;
-}
-
-function positionElement(element, container) {
-  element.classList.add("floating-element");
-  element.style.top =
-    Math.random() * (container.offsetHeight - element.offsetHeight) + "px";
-  element.style.left =
-    Math.random() * (container.offsetWidth - element.offsetWidth) + "px";
-}
-
-function getShortInfoFromCSV(item) {
-  var itemShortInfo = [item.Location, item.Dating];
-  var infoContainer = document.getElementById("info");
-  itemShortInfo.forEach(function (element) {
-    var info = document.createElement("p");
-    var infoText = document.createTextNode(element);
-    info.appendChild(infoText);
-    infoContainer.appendChild(info);
-  });
-}
-
-function getLongInfoFromCSV(item) {
-  var itemLongInfo = [item.Location, item.Dating, item.Material, item.Size];
-  var longInfoContainer = document.getElementById("long-info");
-  itemLongInfo.forEach(function (element) {
-    var info = document.createElement("p");
-    var infoText = document.createTextNode(element);
-    info.appendChild(infoText);
-    longInfoContainer.appendChild(info);
-  });
-  var creditLink = document.createElement("a");
-  var creditText = document.createTextNode(item.Credit);
-  creditLink.appendChild(creditText);
-  creditLink.href = item.Link;
-  creditLink.target = "_blank";
-  longInfoContainer.appendChild(creditLink);
-}
-
-function clearInfo() {
-  var infoContainer = document.getElementById("info");
-  while (infoContainer.firstChild) {
-    infoContainer.removeChild(infoContainer.lastChild);
-  }
-}
-
-function clearLongInfo() {
-  var infoContainer = document.getElementById("long-info");
-  while (infoContainer.firstChild) {
-    infoContainer.removeChild(infoContainer.lastChild);
-  }
-}
-
-function getFootnoteFromCSV(centeredElement, item) {
-  var footnote = item.Footnote;
-  var footnoteContainer = document.createElement("p");
-  footnoteContainer.id = "footnote";
-  footnoteContainer.classList.add("footnote");
-  var footnoteText = document.createTextNode(footnote);
-  footnoteContainer.appendChild(footnoteText);
-  document.body.appendChild(footnoteContainer);
-
-  footnoteContainer.style.transform =
-    "translate(" +
-    (parseFloat(centeredElement.getBoundingClientRect().left) +
-      parseFloat(centeredElement.getBoundingClientRect().width)) +
-    "px, " +
-    (parseFloat(centeredElement.getBoundingClientRect().top) +
-      parseFloat(centeredElement.getBoundingClientRect().height)) +
-    "px)";
-}
-
-function clearFootnote() {
-  var footnote = document.getElementById("footnote");
-  footnote.parentNode.removeChild(footnote);
-}
+  window.app.data = data;
+})();

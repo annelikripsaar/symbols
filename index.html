@@ -1,23 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Document</title>
-  <link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
-</head>
-
-<body>
-  <div class="pan-container">
-    <div id="floating-elements"></div>
-  </div>
-  <div id="info"></div>
-  <div id="long-info"></div>
-</body>
-<script src="papaparse.min.js"></script>
-<script src="panzoom.min.js"></script>
-<script src="data.js"></script>
-
+  <body>
+    <div class="pan-container">
+      <div id="floating-elements"></div>
+      <div id="active-element"></div>
+    </div>
+    <div id="info"></div>
+    <div id="long-info"></div>
+  </body>
+  <script src="papaparse.min.js"></script>
+  <script src="panzoom.min.js"></script>
+  <script src="https://unpkg.com/konva@6.0.0/konva.min.js"></script>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
 </html>

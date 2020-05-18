@@ -43,6 +43,16 @@ a {
   margin-bottom: auto;
 }
 
+#active-element {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 3;
+  height: 100vh;
+  width: 100vw;
+}
+
 #info {
   position: absolute;
   bottom: 8px;
