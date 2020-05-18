@@ -7,6 +7,48 @@
   var container = document.getElementById("floating-elements");
   var activeElementContainer = document.getElementById("active-element");
 
+  var areas = addItemsToAreas(items, {
+    europe: {
+      name: "Europe",
+      x: [0.3, 0.5],
+      y: [0.15, 0.5],
+    },
+    asia: {
+      name: "Asia",
+      x: [0.7, 0.95],
+      y: [0.3, 0.7],
+    },
+    africa: {
+      name: "Africa",
+      x: [0.4, 0.6],
+      y: [0.7, 0.8],
+    },
+    southamerica: {
+      name: "South America",
+      x: [0.1, 0.2],
+      y: [0.7, 0.9],
+    },
+    northamerica: {
+      name: "North America",
+      x: [0.1, 0.2],
+      y: [0.2, 0.4],
+    },
+    centralamerica: {
+      name: "Central America",
+      x: [0.1, 0.2],
+      y: [0.5, 0.6],
+    },
+  });
+
+  function addItemsToAreas(items, areas) {
+    Object.values(areas).forEach(function (area) {
+      area.items = items.filter(function (item) {
+        return item.group === area.name;
+      });
+    });
+    return areas;
+  }
+
   var panzoomMap = Panzoom(container, {
     maxScale: 5,
     contain: "outside",
@@ -14,7 +56,7 @@
   });
 
   var panzoomActiveImage = Panzoom(activeElementContainer, {
-    maxScale: 5,
+    maxScale: 10,
   });
 
   var ESCAPE_KEYCODE = 27;
@@ -24,6 +66,11 @@
 
   function main() {
     initActiveElementRemoval();
+
+    Object.values(areas).forEach(function (area) {
+      tagArea(area, container);
+    });
+
     items.forEach(createItem);
     initPanZoom();
   }
@@ -80,15 +127,59 @@
     if (element.tagName.toLowerCase() === "img") {
       element.style.opacity = "0";
       element.onload = function () {
-        positionElement(element, container);
+        positionElementByGroup(element, item, container);
         element.style.opacity = "1";
         if (activeElement) {
           element.classList.add("blur");
         }
       };
     } else {
-      positionElement(element, container);
+      positionElementByGroup(element, item, container);
     }
+  }
+
+  function tagArea(area, container) {
+    var areaTag = createElement("p", {
+      textContent: area.name + ": " + area.items.length,
+      style: {
+        position: "absolute",
+        left: area.x[0] * container.offsetWidth + "px",
+        top: area.y[0] * container.offsetHeight + "px",
+        transform: "translate(-100%, -100%)",
+      },
+    });
+    container.appendChild(areaTag);
+  }
+
+  function positionElementByGroup(element, item) {
+    element.classList.add("floating-element");
+
+    if (item.group) {
+      Object.values(areas).forEach(function (area) {
+        if (item.group === area.name) {
+          positionInGroup(element, area, container);
+        }
+      });
+    } else {
+      element.style.display = "none";
+    }
+  }
+
+  function positionInGroup(element, area, container) {
+    element.style.left =
+      getRandomPositionInContainerXRange(area.x, container) + "px";
+    element.style.top =
+      getRandomPositionInContainerYRange(area.y, container) + "px";
+  }
+
+  function getRandomPositionInContainerXRange(range, container) {
+    var randomPosition = range[0] + Math.random() * (range[1] - range[0]);
+    return randomPosition * container.offsetWidth;
+  }
+
+  function getRandomPositionInContainerYRange(range, container) {
+    var randomPosition = range[0] + Math.random() * (range[1] - range[0]);
+    return randomPosition * container.offsetHeight;
   }
 
   function selectItem(element, item) {
@@ -101,19 +192,13 @@
     activeElementContainer.style.display = "block";
     activeElementContainer.appendChild(activeImageElement);
 
-    activeImageElement.style.transform = getWindowFitTransform(
-      activeImageElement
-    );
-
-    if (item.image) {
-      setTimeout(() => {
-        handleHighlighting(
-          "images/" + item.image + "_highlight.png",
-          activeImageElement,
-          item
-        );
-      }, ANIMATION_TIME);
-    }
+    setTimeout(function () {
+      handleHighlighting(
+        "images/" + item.image + "_highlight.png",
+        activeImageElement,
+        item
+      );
+    }, 1000);
 
     document
       .querySelectorAll(".floating-element")
@@ -136,6 +221,31 @@
 
     activeElement = activeImageElement;
     setActiveLongInfo(item);
+  }
+
+  function createActiveImageElementFromSelected(element, item) {
+    var activeImageElement = createElement("img", {
+      src: "images/" + item.image + ".png",
+      dataset: {
+        original: element.id,
+      },
+      style: {
+        left: element.style.left,
+        top: element.style.top,
+        transform: "translate(-50%, -50%)",
+        opacity: 0,
+      },
+      classList: ["centered"],
+
+      onload() {
+        activeImageElement.style.transform = getWindowFitTransform(
+          activeImageElement
+        );
+
+        activeImageElement.style.opacity = 1;
+      },
+    });
+    return activeImageElement;
   }
 
   function getWindowFitTransform(element) {
@@ -163,6 +273,7 @@
   }
 
   async function handleHighlighting(src, activeImageElement, item) {
+    var existingTimeout = null;
     var bounds = activeImageElement.getBoundingClientRect();
     var highlight = createElement("div", {
       id: "highlight-container",
@@ -170,14 +281,21 @@
       style: {
         position: "fixed",
         zIndex: 3,
-        width: bounds.width + "px",
-        height: bounds.height + "px",
         left: bounds.left + "px",
         top: bounds.top + "px",
       },
       onwheel() {
         document.getElementById("highlight-container").style.pointerEvents =
           "none";
+        if (existingTimeout !== null) {
+          clearTimeout(existingTimeout);
+          existingTimeout = null;
+        }
+
+        existingTimeout = setTimeout(function () {
+          document.getElementById("highlight-container").style.pointerEvents =
+            "initial";
+        }, 1000);
       },
     });
     activeElementContainer.appendChild(highlight);
@@ -194,6 +312,7 @@
       createFootnote(activeImageElement, item);
     });
     hitArea.on("mouseout", clearFootnote);
+    highlight.addEventListener("click", clearFootnote);
   }
 
   function loadImage(src) {
@@ -204,27 +323,6 @@
         resolve(event.target);
       };
     });
-  }
-
-  function createActiveImageElementFromSelected(element, item) {
-    var activeImageElement = createElement("img", {
-      src: "images/" + item.image + ".png",
-      dataset: {
-        original: element.id,
-      },
-      style: {
-        left: element.style.left,
-        top: element.style.top,
-        transform: "translate(-50%, -50%)",
-        opacity: 0,
-      },
-      classList: ["centered"],
-
-      onload() {
-        activeImageElement.style.opacity = 1;
-      },
-    });
-    return activeImageElement;
   }
 
   function removeCentered(element) {
@@ -256,14 +354,6 @@
     panzoomMap.setOptions({
       disableZoom: false,
     });
-  }
-
-  function positionElement(element, container) {
-    element.classList.add("floating-element");
-    element.style.top =
-      Math.random() * (container.offsetHeight - element.offsetHeight) + "px";
-    element.style.left =
-      Math.random() * (container.offsetWidth - element.offsetWidth) + "px";
   }
 
   function createFootnote(centeredElement, item) {
