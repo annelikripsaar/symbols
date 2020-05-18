@@ -53,7 +53,7 @@
     var element = createElement(item.image ? "img" : "p", {
       id: item.id,
       textContent: item.image ? null : item.name,
-      src: item.image ? "images/" + item.image + ".png" : null,
+      src: item.image ? "thumbnails/" + item.image + ".png" : null,
 
       style: {
         display: item.image ? "block" : "none",
@@ -208,7 +208,7 @@
 
   function createActiveImageElementFromSelected(element, item) {
     var activeImageElement = createElement("img", {
-      src: element.src,
+      src: "images/" + item.image + ".png",
       dataset: {
         original: element.id,
       },
