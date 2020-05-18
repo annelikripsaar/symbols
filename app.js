@@ -55,6 +55,10 @@
       textContent: item.image ? null : item.name,
       src: item.image ? "images/" + item.image + ".png" : null,
 
+      style: {
+        display: item.image ? "block" : "none",
+      },
+
       onmouseenter() {
         setActiveShortInfo(item);
       },

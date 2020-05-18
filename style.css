@@ -118,7 +118,6 @@ a {
 .blur {
   -webkit-filter: blur(14px);
   filter: blur(14px);
-  transition: all 0.2s;
   pointer-events: none;
 }
 
