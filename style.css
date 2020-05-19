@@ -44,6 +44,11 @@ a {
   margin-bottom: auto;
 }
 
+.tag {
+  font-size: 12px;
+  color: #c4c4c4;
+}
+
 #active-element {
   display: none;
   position: fixed;
@@ -94,7 +99,7 @@ a {
   transition: all 0.3s;
 }
 .floating-element:hover {
-  z-index: 2;
+  z-index: 3;
   -webkit-transform: translate(0) scale(1.2, 1.2) !important;
   -moz-transform: translate(0) scale(1.2, 1.2) !important;
   -ms-transform: translate(0) scale(1.2, 1.2) !important;

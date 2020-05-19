@@ -11,7 +11,7 @@
     europe: {
       name: "Europe",
       x: [0.3, 0.5],
-      y: [0.15, 0.5],
+      y: [0.1, 0.5],
     },
     asia: {
       name: "Asia",
@@ -96,6 +96,20 @@
     container.addEventListener("wheel", panzoomMap.zoomWithWheel);
   }
 
+  function tagArea(area, container) {
+    var areaTag = createElement("p", {
+      textContent: area.name + ": " + area.items.length,
+      classList: ["tag"],
+      style: {
+        position: "absolute",
+        left: area.x[0] * container.offsetWidth + "px",
+        top: area.y[0] * container.offsetHeight + "px",
+        transform: "translate(-100%, -100%)",
+      },
+    });
+    container.appendChild(areaTag);
+  }
+
   function createItem(item) {
     var element = createElement(item.image ? "img" : "p", {
       id: item.id,
@@ -104,6 +118,7 @@
 
       style: {
         display: item.image ? "block" : "none",
+        width: item.width * 0.1 * container.offsetWidth + "px",
       },
 
       onmouseenter() {
@@ -124,6 +139,12 @@
 
     container.appendChild(element);
 
+    if (element.offsetWidth < 100) {
+      element.style.zIndex = 2;
+    } else if (element.offsetWidth < 20) {
+      element.style.zIndex = 3;
+    }
+
     if (element.tagName.toLowerCase() === "img") {
       element.style.opacity = "0";
       element.onload = function () {
@@ -136,19 +157,6 @@
     } else {
       positionElementByGroup(element, item, container);
     }
-  }
-
-  function tagArea(area, container) {
-    var areaTag = createElement("p", {
-      textContent: area.name + ": " + area.items.length,
-      style: {
-        position: "absolute",
-        left: area.x[0] * container.offsetWidth + "px",
-        top: area.y[0] * container.offsetHeight + "px",
-        transform: "translate(-100%, -100%)",
-      },
-    });
-    container.appendChild(areaTag);
   }
 
   function positionElementByGroup(element, item) {
@@ -184,6 +192,7 @@
 
   function selectItem(element, item) {
     element.style.display = "none";
+    console.log(element.style.width);
 
     var activeImageElement = createActiveImageElementFromSelected(
       element,
@@ -201,7 +210,7 @@
     }, 1000);
 
     document
-      .querySelectorAll(".floating-element")
+      .querySelectorAll(".floating-element, .tag")
       .forEach(function (bgElement) {
         bgElement.classList.add("blur");
       });
@@ -340,7 +349,7 @@
     clearActiveLongInfo();
 
     document
-      .querySelectorAll(".floating-element")
+      .querySelectorAll(".floating-element, .tag")
       .forEach(function (bgElement) {
         bgElement.classList.remove("blur");
       });
