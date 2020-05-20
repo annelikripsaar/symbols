@@ -201,14 +201,6 @@
     activeElementContainer.style.display = "block";
     activeElementContainer.appendChild(activeImageElement);
 
-    setTimeout(function () {
-      handleHighlighting(
-        "images/" + item.image + "_highlight.png",
-        activeImageElement,
-        item
-      );
-    }, 1000);
-
     document
       .querySelectorAll(".floating-element, .tag")
       .forEach(function (bgElement) {
@@ -252,6 +244,14 @@
         );
 
         activeImageElement.style.opacity = 1;
+
+        setTimeout(function () {
+          handleHighlighting(
+            "images/" + item.image + "_highlight.png",
+            activeImageElement,
+            item
+          );
+        }, ANIMATION_TIME);
       },
     });
     return activeImageElement;
