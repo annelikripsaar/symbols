@@ -7,7 +7,7 @@
   var container = document.getElementById("floating-elements");
   var activeElementContainer = document.getElementById("active-element");
 
-  var areas = addItemsToAreas(items, {
+  var areas = {
     europe: {
       name: "Europe",
       x: [0.3, 0.5],
@@ -38,15 +38,26 @@
       x: [0.1, 0.2],
       y: [0.5, 0.6],
     },
-  });
+  };
 
   function addItemsToAreas(items, areas) {
     Object.values(areas).forEach(function (area) {
       area.items = items.filter(function (item) {
         return item.group === area.name;
       });
+      tagArea(area, container);
     });
     return areas;
+  }
+
+  function clearAreas() {
+    Object.values(areas).forEach(function (area) {
+      area.items = [];
+    });
+    var tags = document.querySelectorAll(".tag");
+    tags.forEach(function (tag) {
+      tag.parentNode.removeChild(tag);
+    });
   }
 
   var panzoomMap = Panzoom(container, {
@@ -67,12 +78,79 @@
   function main() {
     initActiveElementRemoval();
 
+    addItemsToAreas(items, areas);
+
     Object.values(areas).forEach(function (area) {
       tagArea(area, container);
     });
 
     items.forEach(createItem);
     initPanZoom();
+
+    initFilters();
+  }
+
+  function initFilters() {
+    var filters = document.querySelectorAll(".filter");
+    filters.forEach(function (filter) {
+      filter.onclick = function () {
+        clearAreas();
+        clearAllItems();
+        if (filter.classList.contains("active-filter")) {
+          filter.classList.remove("active-filter");
+          addItemsToAreas(items, areas);
+          items.forEach(createItem);
+        } else {
+          resetAllFilters(filters);
+          filter.classList.add("active-filter");
+
+          var filteredItems = items.filter(function (item) {
+            var tags = item.tags.replace(" ", "").split(",");
+            return tags.includes(filter.id);
+          });
+
+          addItemsToAreas(filteredItems, areas);
+          filteredItems.forEach(createItem);
+        }
+      };
+    });
+  }
+
+  function resetAllFilters(filters) {
+    filters.forEach(function (filter) {
+      filter.classList.remove("active-filter");
+    });
+  }
+
+  function clearAllItems() {
+    var elements = document.querySelectorAll(".floating-element");
+    elements.forEach(function (element) {
+      element.parentNode.removeChild(element);
+    });
+  }
+
+  function initDisableClickWhilePanning() {
+    container.addEventListener("panzoomstart", () => {
+      setTimeout(function () {
+        container.style.pointerEvents = "none";
+      }, 100);
+    });
+
+    container.addEventListener("panzoomend", () => {
+      container.style.pointerEvents = "initial";
+    });
+
+    container.addEventListener("click", () => {
+      setTimeout(function () {
+        container.style.pointerEvents = "initial";
+      }, 100);
+
+      if (activeElement) {
+        removeCentered(activeElement);
+        activeElement = null;
+        activeElementContainer.style.display = "none";
+      }
+    });
   }
 
   function initActiveElementRemoval() {
@@ -94,10 +172,12 @@
 
   function initPanZoom() {
     container.addEventListener("wheel", panzoomMap.zoomWithWheel);
+    initDisableClickWhilePanning();
   }
 
   function tagArea(area, container) {
     var areaTag = createElement("p", {
+      id: area,
       textContent: area.name + ": " + area.items.length,
       classList: ["tag"],
       style: {
@@ -133,6 +213,9 @@
         ? function (event) {
             event.stopPropagation();
             selectItem(element, item);
+            setTimeout(() => {
+              container.style.pointerEvents = "initial";
+            }, 101);
           }
         : null,
     });
@@ -192,7 +275,6 @@
 
   function selectItem(element, item) {
     element.style.display = "none";
-    console.log(element.style.width);
 
     var activeImageElement = createActiveImageElementFromSelected(
       element,
@@ -202,23 +284,41 @@
     activeElementContainer.appendChild(activeImageElement);
 
     document
-      .querySelectorAll(".floating-element, .tag")
+      .querySelectorAll(".floating-element, .tag, .filters")
       .forEach(function (bgElement) {
         bgElement.classList.add("blur");
       });
 
     panzoomMap.setOptions({
       disableZoom: true,
+      disablePan: true,
     });
 
     panzoomActiveImage.setOptions({
       disableZoom: false,
+      disablePan: false,
     });
 
-    activeImageElement.addEventListener(
+    activeElementContainer.addEventListener(
       "wheel",
       panzoomActiveImage.zoomWithWheel
     );
+
+    activeElementContainer.addEventListener("panzoomstart", () => {
+      setTimeout(function () {
+        activeElementContainer.style.pointerEvents = "none";
+      }, 100);
+    });
+
+    activeElementContainer.addEventListener("panzoomend", () => {
+      activeElementContainer.style.pointerEvents = "initial";
+    });
+
+    activeElementContainer.addEventListener("click", (event) => {
+      setTimeout(function () {
+        activeElementContainer.style.pointerEvents = "initial";
+      }, 100);
+    });
 
     activeElement = activeImageElement;
     setActiveLongInfo(item);
@@ -349,19 +449,21 @@
     clearActiveLongInfo();
 
     document
-      .querySelectorAll(".floating-element, .tag")
+      .querySelectorAll(".floating-element, .tag, .filters")
       .forEach(function (bgElement) {
         bgElement.classList.remove("blur");
       });
 
     panzoomActiveImage.setOptions({
       disableZoom: true,
+      disablePan: true,
     });
 
     panzoomActiveImage.reset();
 
     panzoomMap.setOptions({
       disableZoom: false,
+      disablePan: false,
     });
   }
 

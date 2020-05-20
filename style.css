@@ -49,6 +49,35 @@ a {
   color: #c4c4c4;
 }
 
+.filters {
+  position: absolute;
+  bottom: 0;
+  align-self: center;
+  margin-bottom: 16px;
+}
+
+.filter {
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border: none;
+  margin-right: 24px;
+  transition: fill 0.2s;
+}
+
+.filter svg {
+  height: 32px;
+  width: 32px;
+}
+
+.filter:hover {
+  cursor: pointer;
+  fill: rgb(175, 0, 0);
+}
+
+.active-filter {
+  fill: rgb(175, 0, 0);
+}
+
 #active-element {
   display: none;
   position: fixed;
@@ -98,6 +127,7 @@ a {
   transform: translate(0) scale(1, 1);
   transition: all 0.3s;
 }
+
 .floating-element:hover {
   z-index: 3;
   -webkit-transform: translate(0) scale(1.2, 1.2) !important;
