@@ -251,7 +251,7 @@
             activeImageElement,
             item
           );
-        }, ANIMATION_TIME);
+        }, 1000);
       },
     });
     return activeImageElement;
