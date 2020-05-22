@@ -6,6 +6,7 @@
   var activeElement;
   var container = document.getElementById("floating-elements");
   var activeElementContainer = document.getElementById("active-element");
+  var aboutSection = document.getElementById("about");
 
   var areas = {
     europe: {
@@ -233,7 +234,7 @@
       element.onload = function () {
         positionElementByGroup(element, item, container);
         element.style.opacity = "1";
-        if (activeElement) {
+        if (activeElement || aboutSection.style.display === "block") {
           element.classList.add("blur");
         }
       };

@@ -60,8 +60,11 @@ a {
   background-repeat: no-repeat;
   background-color: transparent;
   border: none;
-  margin-right: 24px;
   transition: fill 0.2s;
+}
+
+.filter:not(:last-of-type) {
+  margin-right: 24px;
 }
 
 .filter svg {
@@ -75,6 +78,69 @@ a {
 }
 
 .active-filter {
+  fill: rgb(175, 0, 0);
+}
+
+[data-name="about"] {
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-top: 16px;
+  margin-right: 24px;
+  background-color: transparent;
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  z-index: 2;
+}
+
+[data-name="about"]:hover {
+  cursor: pointer;
+}
+
+#about {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  overflow-y: auto;
+  padding: 10vh 18vw;
+}
+
+#about p {
+  font-size: 2em;
+  line-height: 1.3;
+}
+
+#about p:last-of-type {
+  margin-bottom: 72px;
+}
+
+#about .small {
+  font-size: 16px;
+  max-width: 40vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.large-filters {
+  display: flex;
+  width: 70%;
+  justify-content: space-between;
+  margin: 64px auto;
+}
+
+.large-filter {
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border: none;
+  transition: fill 0.2s;
+}
+
+.large-filter:not(:last-of-type) {
+  margin-right: 4vw;
+}
+
+.large-filter:hover {
   fill: rgb(175, 0, 0);
 }
 
