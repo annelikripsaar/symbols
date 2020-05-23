@@ -513,7 +513,13 @@
   function setActiveLongInfo(item) {
     var longInfoContainer = document.getElementById("long-info");
 
-    var fields = [item.location, item.dating, item.material, item.size];
+    var fields = [
+      item.location,
+      item.dating,
+      item.name,
+      item.material,
+      item.size,
+    ];
     fields.filter(Boolean).forEach(function (field) {
       longInfoContainer.appendChild(
         createElement("p", {

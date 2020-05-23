@@ -5,11 +5,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Document</title>
-  <link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
+  <svg style="width:0;height:0;position:absolute;" aria-hidden="true" focusable="false">
+    <linearGradient id="my-uncool-gradient" x2="1" y2="1">
+      <stop offset="0%" stop-color="#000000" />
+      <stop offset="100%" stop-color="#000000" />
+    </linearGradient>
+    <linearGradient id="my-cool-gradient" x2="1" y2="1">
+      <stop offset="0%" stop-color="#00FF85" />
+      <stop offset="100%" stop-color="#2DBFBF" />
+    </linearGradient>
+  </svg>
   <div class="pan-container">
     <div id="floating-elements"></div>
     <div id="active-element"></div>
@@ -61,7 +71,7 @@
       design for local produce.</p>
     <div class="symbols">
       <div class="large-filters">
-        <button class="large-filter">
+        <button id="large-octagram" class="large-filter">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 71 68">
             <g id="Layer_2" data-name="Layer 2">
               <g id="Layer_1-2" data-name="Layer 1">
@@ -77,7 +87,7 @@
             </g>
           </svg>
         </button>
-        <button class="large-filter">
+        <button id="large-doublecross" class="large-filter">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72">
             <g id="Layer_2" data-name="Layer 2">
               <g id="Layer_1-2" data-name="Layer 1">
@@ -87,7 +97,7 @@
             </g>
           </svg>
         </button>
-        <button class="large-filter">
+        <button id="large-rhomb" class="large-filter">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 71.5 71.85">
             <g id="Layer_2" data-name="Layer 2">
               <g id="Layer_1-2" data-name="Layer 1">
