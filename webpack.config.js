@@ -1,4 +1,7 @@
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
 module.exports = {
+  plugins: [new MiniCssExtractPlugin()],
   module: {
     rules: [
       {
@@ -11,13 +14,16 @@ module.exports = {
               [
                 "@babel/env",
                 {
-                  targets: "> 0.25%, not dead",
                   useBuiltIns: "usage",
                 },
               ],
             ],
           },
         },
+      },
+      {
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"],
       },
       {
         test: /\.(csv|txt)$/,

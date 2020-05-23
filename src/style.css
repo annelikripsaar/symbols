@@ -232,20 +232,12 @@ button {
 .floating-element {
   position: absolute;
   width: 100px;
-  -webkit-transform: translate(0) scale(1, 1);
-  -moz-transform: translate(0) scale(1, 1);
-  -ms-transform: translate(0) scale(1, 1);
-  -o-transform: translate(0) scale(1, 1);
   transform: translate(0) scale(1, 1);
   transition: all 0.3s;
 }
 
 .floating-element:hover {
   z-index: 3;
-  -webkit-transform: translate(0) scale(1.2, 1.2) !important;
-  -moz-transform: translate(0) scale(1.2, 1.2) !important;
-  -ms-transform: translate(0) scale(1.2, 1.2) !important;
-  -o-transform: translate(0) scale(1.2, 1.2) !important;
   transform: translate(0) scale(1.2, 1.2) !important;
   cursor: pointer;
 }
@@ -264,7 +256,6 @@ button {
 }
 
 .blur {
-  -webkit-filter: blur(14px);
   filter: blur(14px);
   pointer-events: none;
 }
