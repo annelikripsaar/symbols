@@ -1,9 +1,8 @@
-(function () {
-  "use strict";
+import Papa from "papaparse";
 
-  window.app = window.app || {};
+window.app = window.app || {};
 
-  var csv = `Name,Tags,Footnote,Location,Group,Dating,Material,Size,Display width,Credit,Link,File
+var csv = `Name,Tags,Footnote,Location,Group,Dating,Material,Size,Display width,Credit,Link,File
 Door,double cross,Double cross info,Spain,Europe,15th–16th century,walnut,191.8 x 72.7 cm,,The Met,https://www.metmuseum.org/art/collection/search/470759?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+1400-1600&amp;what=Woodwork&amp;ft=*&amp;offset=60&amp;rpp=20&amp;pos=65,
 Hip-joint armchair,double cross,Double cross info,Spain,Europe,ca. 1480–1500,"walnut, elm, ivory, bone, pewter, silk velvet",92.7 x 61 x 49.5 cm,,The Met,https://www.metmuseum.org/art/collection/search/199649?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+1400-1600&amp;what=Woodwork&amp;ft=*&amp;offset=220&amp;rpp=20&amp;pos=237,
 Folding chair (bw),double cross,,Spain,Europe,15th century,"walnut, ivory, steel, bone, leather",96.5 x 62.9 x 45.7 cm,,The Met,https://www.metmuseum.org/art/collection/search/196346?searchField=All&amp;sortBy=Relevance&amp;when=A.D.+1400-1600&amp;what=Woodwork&amp;ft=*&amp;offset=260&amp;rpp=20&amp;pos=272,
@@ -117,25 +116,23 @@ Glass Fragment,double cross,,European,Europe,14th century,glass,7 x 5.5 cm,0.07,
 Shirt,double cross,,"Kihnu, Estonia",Europe,1906-1912,linen,61 x 41 cm,0.8,Estonian National Museum,https://www.muis.ee/museaalview/580385,shirt_kihnu
 Sampler,double cross,"In their earliest form, samplers were put together by embroiderers as personal reference works. They showed trials of patterns and stitches that had been copied from other embroideries.",Mexico,Central America,19th century,cotton,76 x 69,0.76,Victoria & Albert Museum,http://collections.vam.ac.uk/item/O70715/sampler-unknown/,sampler-sq_mexico`;
 
-  var data = Papa.parse(csv, { header: true }).data.map(function (
-    value,
-    index
-  ) {
-    return {
-      id: index,
-      name: value.Name,
-      tags: value.Tags,
-      footnote: value.Footnote || null,
-      location: value.Location || null,
-      group: value.Group,
-      dating: value.Dating || null,
-      material: value.Material || null,
-      size: value.Size || null,
-      width: parseFloat(value["Display width"]) || null,
-      credit: value.Credit,
-      link: value.Link,
-      image: value.File || null,
-    };
-  });
-  window.app.data = data;
-})();
+export default Papa.parse(csv, { header: true }).data.map(function (
+  value,
+  index
+) {
+  return {
+    id: index,
+    name: value.Name,
+    tags: value.Tags,
+    footnote: value.Footnote || null,
+    location: value.Location || null,
+    group: value.Group,
+    dating: value.Dating || null,
+    material: value.Material || null,
+    size: value.Size || null,
+    width: parseFloat(value["Display width"]) || null,
+    credit: value.Credit,
+    link: value.Link,
+    image: value.File || null,
+  };
+});
