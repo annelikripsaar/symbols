@@ -28,12 +28,14 @@
     "postcss-loader": "^3.0.0",
     "raw-loader": "^4.0.1",
     "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.11"
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.11.0"
   },
   "browserslist": "> 0.25%, not dead",
   "dependencies": {
     "@babel/polyfill": "^7.8.7",
     "@panzoom/panzoom": "^4.1.0",
+    "konva": "^6.0.0",
     "papaparse": "^5.2.0"
   }
 }

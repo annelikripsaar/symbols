@@ -448,9 +448,12 @@ async function handleHighlighting(src, activeImageElement, item) {
     },
   });
   activeElementContainer.appendChild(highlight);
-  var highlightImage = await loadImage(src);
+  const [highlightImage, Konva] = await Promise.all([
+    loadImage(src),
+    import("konva"),
+  ]);
 
-  var hitArea = saveImageWithHitArea(highlightImage, {
+  var hitArea = saveImageWithHitArea(Konva, highlightImage, {
     container: highlight.id,
     x: bounds.left,
     y: bounds.top,
@@ -632,7 +635,7 @@ function createElement(tag, properties = {}) {
   return element;
 }
 
-function saveImageWithHitArea(image, container) {
+function saveImageWithHitArea(Konva, image, container) {
   var stage = new Konva.Stage({
     container: container.container,
     width: container.width,
