@@ -19,6 +19,12 @@ module.exports = {
           },
         },
       },
+      {
+        test: /\.(csv|txt)$/,
+        use: {
+          loader: "raw-loader",
+        },
+      },
     ],
   },
 };
