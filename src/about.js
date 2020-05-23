@@ -1,3 +1,5 @@
+import { createElement } from "./utils";
+
 var aboutButton = document.querySelector("[data-name='about']");
 var aboutSection = document.getElementById(aboutButton.dataset.name);
 
@@ -89,7 +91,9 @@ function initShowcaseItems(icon, idList) {
     showcaseItem.style.zIndex = "1";
     showcaseItem.classList.add("blur");
     setTimeout(function () {
-      document.body.removeChild(showcaseItem);
+      if (showcaseItem.parentNode) {
+        document.body.removeChild(showcaseItem);
+      }
     }, 1000);
   };
 
@@ -98,58 +102,9 @@ function initShowcaseItems(icon, idList) {
     showcaseItem.style.zIndex = "1";
     showcaseItem.classList.add("blur");
     setTimeout(function () {
-      document.body.removeChild(showcaseItem);
+      if (showcaseItem.parentNode) {
+        document.body.removeChild(showcaseItem);
+      }
     }, 1000);
   };
-}
-
-function createElement(tag, properties = {}) {
-  var element = document.createElement(tag);
-  if (properties.id) {
-    element.id = properties.id;
-  }
-  if (properties.classList) {
-    properties.classList.forEach(function (c) {
-      element.classList.add(c);
-    });
-  }
-  if (properties.src) {
-    element.src = properties.src;
-  }
-  if (properties.textContent) {
-    element.textContent = properties.textContent;
-  }
-  if (properties.onload) {
-    element.onload = properties.onload;
-  }
-
-  if (properties.onclick) {
-    element.onclick = properties.onclick;
-  }
-  if (properties.onmouseenter) {
-    element.onmouseenter = properties.onmouseenter;
-  }
-  if (properties.onmouseleave) {
-    element.onmouseleave = properties.onmouseleave;
-  }
-  if (properties.onwheel) {
-    element.onwheel = properties.onwheel;
-  }
-  if (properties.href) {
-    element.href = properties.href;
-  }
-  if (properties.target) {
-    element.target = properties.target;
-  }
-  if (properties.dataset) {
-    Object.keys(properties.dataset).forEach(function (key) {
-      element.dataset[key] = properties.dataset[key];
-    });
-  }
-  if (properties.style) {
-    Object.keys(properties.style).forEach(function (key) {
-      element.style[key] = properties.style[key];
-    });
-  }
-  return element;
 }

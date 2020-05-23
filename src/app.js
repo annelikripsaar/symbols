@@ -1,9 +1,11 @@
 import Panzoom from "@panzoom/panzoom";
+import { createElement } from "./utils";
 
 var activeElement;
 var container = document.getElementById("floating-elements");
 var activeElementContainer = document.getElementById("active-element");
 var aboutSection = document.getElementById("about");
+var konvaStage;
 
 var areas = {
   europe: {
@@ -201,34 +203,46 @@ function tagArea(area, container) {
 }
 
 function createItem(item) {
-  var element = createElement(item.image ? "img" : "p", {
-    id: item.id,
-    textContent: item.image ? null : item.name,
-    src: item.image ? "thumbnails/" + item.image + ".png" : null,
+  if (!item.image) {
+    return null;
+  }
+  var element = createElement(
+    "picture",
+    {
+      id: item.id,
 
-    style: {
-      display: item.image ? "block" : "none",
-      width: item.width * 0.1 * container.offsetWidth + "px",
+      onmouseenter() {
+        setActiveShortInfo(item);
+      },
+
+      onmouseleave() {
+        clearActiveShortInfo();
+      },
+
+      onclick: function (event) {
+        event.stopPropagation();
+        selectItem(element, item);
+        setTimeout(() => {
+          container.style.pointerEvents = "initial";
+        }, 101);
+      },
     },
-
-    onmouseenter() {
-      setActiveShortInfo(item);
-    },
-
-    onmouseleave() {
-      clearActiveShortInfo();
-    },
-
-    onclick: item.image
-      ? function (event) {
-          event.stopPropagation();
-          selectItem(element, item);
-          setTimeout(() => {
-            container.style.pointerEvents = "initial";
-          }, 101);
-        }
-      : null,
-  });
+    [
+      createElement("source", {
+        srcset: "images/" + item.image + ".webp",
+        type: "image/webp",
+        style: {
+          width: item.width * 0.1 * container.offsetWidth + "px",
+        },
+      }),
+      createElement("img", {
+        src: "thumbnails/" + item.image + ".png",
+        style: {
+          width: item.width * 0.1 * container.offsetWidth + "px",
+        },
+      }),
+    ]
+  );
 
   container.appendChild(element);
 
@@ -364,40 +378,45 @@ function selectItem(element, item) {
   setActiveLongInfo(item);
 }
 
+/*<picture>
+  <source srcset="img/awesomeWebPImage.webp" type="image/webp">
+  <img src="img/creakyOldJPEG.jpg" alt="Alt Text!">
+</picture>*/
+
 function createActiveImageElementFromSelected(element, item) {
-  var activeImageElement = createElement("img", {
-    src: "images/" + item.image + ".png",
-    dataset: {
-      original: element.id,
+  var activeImageElement = createElement(
+    "picture",
+    {
+      dataset: {
+        original: element.id,
+      },
+      style: {
+        left: element.style.left,
+        top: element.style.top,
+        transform: "translate(-50%, -50%)",
+        opacity: 0,
+      },
     },
-    style: {
-      left: element.style.left,
-      top: element.style.top,
-      transform: "translate(-50%, -50%)",
-      opacity: 0,
-    },
-    classList: ["centered"],
-
-    onload() {
-      activeImageElement.style.transform = getWindowFitTransform(
-        activeImageElement
-      );
-
-      activeImageElement.style.opacity = 1;
-
-      setTimeout(function () {
-        handleHighlighting(
-          "images/" + item.image + "_highlight.png",
-          activeImageElement,
-          item
-        );
-      }, 1000);
-    },
-  });
+    [
+      createElement("source", {
+        srcset: "images/" + item.image + ".webp",
+        type: "image/webp",
+      }),
+      createElement("img", {
+        src: "images/" + item.image + ".png",
+        classList: ["centered"],
+        onload() {
+          this.style.transform = getWindowFitTransform(this);
+          activeImageElement.style.opacity = 1;
+          handleHighlighting(this, item);
+        },
+      }),
+    ]
+  );
   return activeImageElement;
 }
 
-function getWindowFitTransform(element) {
+function getWindowFitTransform(element, item) {
   var heightRatio = window.innerHeight / element.offsetHeight;
   var widthRatio = window.innerWidth / element.offsetWidth;
   var padding = 2;
@@ -421,7 +440,11 @@ function getWindowFitTransform(element) {
   }
 }
 
-async function handleHighlighting(src, activeImageElement, item) {
+async function handleHighlighting(activeImageElement, item) {
+  let currentSrcArray = activeImageElement.currentSrc.split(".");
+  const srcExtension = currentSrcArray[currentSrcArray.length - 1];
+  const src = "images/" + item.image + "_highlight." + srcExtension;
+  console.log(src);
   var existingTimeout = null;
   var bounds = activeImageElement.getBoundingClientRect();
   var highlight = createElement("div", {
@@ -450,9 +473,9 @@ async function handleHighlighting(src, activeImageElement, item) {
   activeElementContainer.appendChild(highlight);
   const [highlightImage, Konva] = await Promise.all([
     loadImage(src),
-    import("konva"),
+    import(/* webpackChunkName: "konva" */ "konva"),
   ]);
-
+  console.log(highlightImage);
   var hitArea = saveImageWithHitArea(Konva, highlightImage, {
     container: highlight.id,
     x: bounds.left,
@@ -481,7 +504,13 @@ function removeCentered(element) {
   displayCurrentScale(panzoomMap, 5);
 
   var highlight = document.querySelector(".highlight");
-  highlight.parentNode.removeChild(highlight);
+  if (konvaStage) {
+    konvaStage.destroy();
+    konvaStage = null;
+  }
+  if (highlight) {
+    highlight.parentNode.removeChild(highlight);
+  }
 
   element.style.transform = "translate(-50%,-50%) scale(0, 0)";
 
@@ -584,59 +613,11 @@ function clearActiveLongInfo() {
   infoContainer.textContent = "";
 }
 
-function createElement(tag, properties = {}) {
-  var element = document.createElement(tag);
-  if (properties.id) {
-    element.id = properties.id;
-  }
-  if (properties.classList) {
-    properties.classList.forEach(function (c) {
-      element.classList.add(c);
-    });
-  }
-  if (properties.src) {
-    element.src = properties.src;
-  }
-  if (properties.textContent) {
-    element.textContent = properties.textContent;
-  }
-  if (properties.onload) {
-    element.onload = properties.onload;
-  }
-
-  if (properties.onclick) {
-    element.onclick = properties.onclick;
-  }
-  if (properties.onmouseenter) {
-    element.onmouseenter = properties.onmouseenter;
-  }
-  if (properties.onmouseleave) {
-    element.onmouseleave = properties.onmouseleave;
-  }
-  if (properties.onwheel) {
-    element.onwheel = properties.onwheel;
-  }
-  if (properties.href) {
-    element.href = properties.href;
-  }
-  if (properties.target) {
-    element.target = properties.target;
-  }
-  if (properties.dataset) {
-    Object.keys(properties.dataset).forEach(function (key) {
-      element.dataset[key] = properties.dataset[key];
-    });
-  }
-  if (properties.style) {
-    Object.keys(properties.style).forEach(function (key) {
-      element.style[key] = properties.style[key];
-    });
-  }
-  return element;
-}
-
 function saveImageWithHitArea(Konva, image, container) {
-  var stage = new Konva.Stage({
+  if (konvaStage) {
+    konvaStage.destroy();
+  }
+  konvaStage = new Konva.Stage({
     container: container.container,
     width: container.width,
     height: container.height,
@@ -654,6 +635,6 @@ function saveImageWithHitArea(Konva, image, container) {
   area.drawHitFromCache();
 
   layer.add(area);
-  stage.add(layer);
+  konvaStage.add(layer);
   return area;
 }
