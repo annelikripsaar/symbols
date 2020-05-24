@@ -11,11 +11,11 @@ export function run() {
 
   document.querySelectorAll(".large-filter").forEach(function (icon) {
     if (icon.id === "large-octagram") {
-      initShowcaseItems(icon, ["65"]);
+      initShowcaseItems(icon, ["58"]);
     } else if (icon.id === "large-doublecross") {
-      initShowcaseItems(icon, ["6"]);
+      initShowcaseItems(icon, ["19"]);
     } else {
-      initShowcaseItems(icon, ["91"]);
+      initShowcaseItems(icon, ["83"]);
     }
   });
 }
