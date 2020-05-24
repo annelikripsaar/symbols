@@ -85,7 +85,7 @@ export function run(items) {
 
   initPanZoom();
 
-  initFilters();
+  initFilters(items);
 
   if ("ResizeObserver" in window) {
     const resizeObserver = new ResizeObserver(() => {
@@ -94,9 +94,8 @@ export function run(items) {
     resizeObserver.observe(document.body);
   } else {
     toggleBackgroundBlur();
+    initializeItems(items);
   }
-
-  initializeItems(items);
 }
 
 function initializeItems(items) {
@@ -132,7 +131,7 @@ function initializeItems(items) {
   }
 }
 
-function initFilters() {
+function initFilters(items) {
   var filters = document.querySelectorAll(".filter");
   filters.forEach(function (filter) {
     filter.onclick = function () {
@@ -293,20 +292,14 @@ function createItem(item) {
     element.style.zIndex = 3;
   }
 
-  if (element.tagName.toLowerCase() === "img") {
-    element.style.opacity = "0";
-    element.onload = function () {
-      positionElementByGroup(element, item, container);
-      element.style.opacity = "1";
-      if (activeElement || aboutSection.style.display === "block") {
-        element.classList.add("blur");
-      }
-      if (activeElement) {
-      }
-    };
-  } else {
+  element.style.opacity = "0";
+  element.querySelector("img").onload = function () {
     positionElementByGroup(element, item, container);
-  }
+    element.style.opacity = "1";
+    if (activeElement || aboutSection.style.display === "block") {
+      element.classList.add("blur");
+    }
+  };
 }
 
 function positionElementByGroup(element, item) {
