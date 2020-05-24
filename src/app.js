@@ -78,6 +78,8 @@ var ESCAPE_KEYCODE = 27;
 var ANIMATION_TIME = 200;
 
 export function run(items) {
+  checkIfIE();
+
   initActiveElementRemoval();
   addItemsToAreas(items, areas);
 
@@ -85,12 +87,16 @@ export function run(items) {
 
   initFilters();
 
-  const resizeObserver = new ResizeObserver(() => {
-    initializeItems(items);
-  });
+  if ("ResizeObserver" in window) {
+    const resizeObserver = new ResizeObserver(() => {
+      initializeItems(items);
+    });
+    resizeObserver.observe(document.body);
+  } else {
+    toggleBackgroundBlur();
+  }
 
   initializeItems(items);
-  resizeObserver.observe(document.body);
 }
 
 function initializeItems(items) {
@@ -102,7 +108,11 @@ function initializeItems(items) {
   items.forEach(createItem);
 
   if (aboutSection.style.display === "block" || activeElement) {
-    toggleBackgroundBlur();
+    document
+      .querySelectorAll(".floating-element, .tag, .filters, .scale-container")
+      .forEach(function (bgElement) {
+        bgElement.classList.add("blur");
+      });
     if (activeElement) {
       if (activeHighlight.parentNode) {
         activeHighlight.parentNode.removeChild(activeHighlight);
@@ -675,4 +685,10 @@ function saveImageWithHitArea(Konva, image, container) {
   layer.add(area);
   konvaStage.add(layer);
   return area;
+}
+
+function checkIfIE() {
+  if (window.document.documentMode) {
+    document.body.classList.add("ie-fallback");
+  }
 }

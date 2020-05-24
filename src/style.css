@@ -22,6 +22,8 @@ body {
   font-family: "Work Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
     "Segoe UI Symbol";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 a {
@@ -138,6 +140,7 @@ button {
   bottom: 0;
   overflow-y: auto;
   padding: 10vh 18vw;
+  left: 0;
 }
 
 #about p {
@@ -255,8 +258,13 @@ button {
 }
 
 .blur {
+  filter: url(#blur);
   filter: blur(14px);
   pointer-events: none;
+}
+
+.ie-fallback .blur {
+  opacity: 0.2;
 }
 
 .highlight {
@@ -265,7 +273,8 @@ button {
   animation-iteration-count: infinite;
   animation-timing-function: ease-in-out;
   animation-fill-mode: backwards;
-  mix-blend-mode: saturation;
+  mix-blend-mode: color;
+  opacity: 0.7;
 }
 
 .footnote {
