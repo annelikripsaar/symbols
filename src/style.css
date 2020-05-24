@@ -231,7 +231,6 @@ button {
 
 .floating-element {
   position: absolute;
-  width: 100px;
   transform: translate(0) scale(1, 1);
   transition: all 0.3s;
 }

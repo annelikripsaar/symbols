@@ -86,35 +86,40 @@ export function run(items) {
   initFilters();
 
   const resizeObserver = new ResizeObserver(() => {
-    clearAreas();
-    clearAllItems();
-    Object.values(areas).forEach(function (area) {
-      tagArea(area, container);
-    });
-    items.forEach(createItem);
-
-    if (aboutSection.style.display === "block" || activeElement) {
-      toggleBackgroundBlur();
-      if (activeElement) {
-        if (activeHighlight.parentNode) {
-          activeHighlight.parentNode.removeChild(activeHighlight);
-        }
-
-        if (konvaStage) {
-          konvaStage.destroy();
-          konvaStage = null;
-        }
-        handleHighlighting(
-          activeElement.querySelector("img"),
-          items.find(
-            (item) => item.id.toString() === activeElement.dataset.original
-          )
-        );
-      }
-    }
+    initializeItems(items);
   });
 
+  initializeItems(items);
   resizeObserver.observe(document.body);
+}
+
+function initializeItems(items) {
+  clearAreas();
+  clearAllItems();
+  Object.values(areas).forEach(function (area) {
+    tagArea(area, container);
+  });
+  items.forEach(createItem);
+
+  if (aboutSection.style.display === "block" || activeElement) {
+    toggleBackgroundBlur();
+    if (activeElement) {
+      if (activeHighlight.parentNode) {
+        activeHighlight.parentNode.removeChild(activeHighlight);
+      }
+
+      if (konvaStage) {
+        konvaStage.destroy();
+        konvaStage = null;
+      }
+      handleHighlighting(
+        activeElement.querySelector("img"),
+        items.find(
+          (item) => item.id.toString() === activeElement.dataset.original
+        )
+      );
+    }
+  }
 }
 
 function initFilters() {
@@ -374,7 +379,6 @@ function selectItem(element, item) {
   activeElement = activeImageElement;
 
   activeElementContainer.addEventListener("wheel", function () {
-    console.log(panzoomActiveImage.getScale());
     displayCurrentScale(panzoomActiveImage, 10);
     if (panzoomActiveImage.getScale() >= 10) {
       var nextElement = document.getElementById(

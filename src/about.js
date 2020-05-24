@@ -9,8 +9,6 @@ export function run() {
 
   aboutSection.style.display = "block";
 
-  toggleBackgroundBlur();
-
   document.querySelectorAll(".large-filter").forEach(function (icon) {
     if (icon.id === "large-octagram") {
       initShowcaseItems(icon, ["65"]);
