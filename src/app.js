@@ -1,10 +1,11 @@
 import Panzoom from "@panzoom/panzoom";
 import { createElement } from "./utils";
+import { aboutSection, toggleBackgroundBlur } from "./about";
 
 var activeElement;
+var activeHighlight;
 var container = document.getElementById("floating-elements");
 var activeElementContainer = document.getElementById("active-element");
-var aboutSection = document.getElementById("about");
 var konvaStage;
 
 var areas = {
@@ -78,17 +79,42 @@ var ANIMATION_TIME = 200;
 
 export function run(items) {
   initActiveElementRemoval();
-
   addItemsToAreas(items, areas);
 
-  Object.values(areas).forEach(function (area) {
-    tagArea(area, container);
-  });
-
-  items.forEach(createItem);
   initPanZoom();
 
   initFilters();
+
+  const resizeObserver = new ResizeObserver(() => {
+    clearAreas();
+    clearAllItems();
+    Object.values(areas).forEach(function (area) {
+      tagArea(area, container);
+    });
+    items.forEach(createItem);
+
+    if (aboutSection.style.display === "block" || activeElement) {
+      toggleBackgroundBlur();
+      if (activeElement) {
+        if (activeHighlight.parentNode) {
+          activeHighlight.parentNode.removeChild(activeHighlight);
+        }
+
+        if (konvaStage) {
+          konvaStage.destroy();
+          konvaStage = null;
+        }
+        handleHighlighting(
+          activeElement.querySelector("img"),
+          items.find(
+            (item) => item.id.toString() === activeElement.dataset.original
+          )
+        );
+      }
+    }
+  });
+
+  resizeObserver.observe(document.body);
 }
 
 function initFilters() {
@@ -259,6 +285,8 @@ function createItem(item) {
       element.style.opacity = "1";
       if (activeElement || aboutSection.style.display === "block") {
         element.classList.add("blur");
+      }
+      if (activeElement) {
       }
     };
   } else {
@@ -444,8 +472,9 @@ async function handleHighlighting(activeImageElement, item) {
   let currentSrcArray = activeImageElement.currentSrc.split(".");
   const srcExtension = currentSrcArray[currentSrcArray.length - 1];
   const src = "images/" + item.image + "_highlight." + srcExtension;
-  console.log(src);
+
   var existingTimeout = null;
+
   var bounds = activeImageElement.getBoundingClientRect();
   var highlight = createElement("div", {
     id: "highlight-container",
@@ -471,11 +500,13 @@ async function handleHighlighting(activeImageElement, item) {
     },
   });
   activeElementContainer.appendChild(highlight);
+  activeHighlight = highlight;
+
   const [highlightImage, Konva] = await Promise.all([
     loadImage(src),
     import(/* webpackChunkName: "konva" */ "konva"),
   ]);
-  console.log(highlightImage);
+
   var hitArea = saveImageWithHitArea(Konva, highlightImage, {
     container: highlight.id,
     x: bounds.left,
@@ -510,6 +541,7 @@ function removeCentered(element) {
   }
   if (highlight) {
     highlight.parentNode.removeChild(highlight);
+    activeHighlight = null;
   }
 
   element.style.transform = "translate(-50%,-50%) scale(0, 0)";
@@ -562,7 +594,9 @@ function createFootnote(centeredElement, item) {
 
 function clearFootnote() {
   var footnote = document.getElementById("footnote");
-  footnote.parentElement.removeChild(footnote);
+  if (footnote) {
+    footnote.parentElement.removeChild(footnote);
+  }
 }
 
 function setActiveShortInfo(item) {

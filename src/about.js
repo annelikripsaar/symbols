@@ -1,7 +1,7 @@
 import { createElement } from "./utils";
 
 var aboutButton = document.querySelector("[data-name='about']");
-var aboutSection = document.getElementById(aboutButton.dataset.name);
+export const aboutSection = document.getElementById("about");
 
 export function run() {
   aboutButton.textContent = "×";
@@ -41,7 +41,7 @@ aboutButton.onclick = function () {
   }
 };
 
-function toggleBackgroundBlur() {
+export function toggleBackgroundBlur() {
   document
     .querySelectorAll(".floating-element, .tag, .filters, .scale-container")
     .forEach(function (bgElement) {
@@ -51,60 +51,62 @@ function toggleBackgroundBlur() {
 
 function initShowcaseItems(icon, idList) {
   var itemA = document.getElementById(idList[0]);
-  var showcaseItem = createElement("img", {
-    src: itemA.src,
-    style: {
-      position: "absolute",
-      left: itemA.style.left,
-      top: itemA.style.top,
-      width: itemA.offsetWidth + "px",
-      transition: "transform 0.2s",
-    },
-  });
+  if (itemA) {
+    var showcaseItem = createElement("img", {
+      src: itemA.querySelector("img").src,
+      style: {
+        position: "absolute",
+        left: itemA.style.left,
+        top: itemA.style.top,
+        width: itemA.offsetWidth + "px",
+        transition: "transform 0.2s",
+      },
+    });
 
-  icon.onmouseenter = function () {
-    showcaseItem.style.left = itemA.style.left;
-    showcaseItem.style.top = itemA.style.top;
-    document.body.appendChild(showcaseItem);
-    showcaseItem.classList.remove("blur");
+    icon.onmouseenter = function () {
+      showcaseItem.style.left = itemA.style.left;
+      showcaseItem.style.top = itemA.style.top;
+      document.body.appendChild(showcaseItem);
+      showcaseItem.classList.remove("blur");
 
-    setTimeout(function () {
-      showcaseItem.style.transform = "scale(5)";
-      showcaseItem.style.zIndex = "5";
-    }, 100);
-  };
+      setTimeout(function () {
+        showcaseItem.style.transform = "scale(5)";
+        showcaseItem.style.zIndex = "5";
+      }, 100);
+    };
 
-  icon.onfocus = function () {
-    showcaseItem.style.left = itemA.style.left;
-    showcaseItem.style.top = itemA.style.top;
-    document.body.appendChild(showcaseItem);
-    showcaseItem.classList.remove("blur");
+    icon.onfocus = function () {
+      showcaseItem.style.left = itemA.style.left;
+      showcaseItem.style.top = itemA.style.top;
+      document.body.appendChild(showcaseItem);
+      showcaseItem.classList.remove("blur");
 
-    setTimeout(function () {
-      showcaseItem.style.transform = "scale(5)";
-      showcaseItem.style.zIndex = "5";
-    }, 100);
-  };
+      setTimeout(function () {
+        showcaseItem.style.transform = "scale(5)";
+        showcaseItem.style.zIndex = "5";
+      }, 100);
+    };
 
-  icon.onmouseleave = function () {
-    showcaseItem.style.transform = "scale(1)";
-    showcaseItem.style.zIndex = "1";
-    showcaseItem.classList.add("blur");
-    setTimeout(function () {
-      if (showcaseItem.parentNode) {
-        document.body.removeChild(showcaseItem);
-      }
-    }, 1000);
-  };
+    icon.onmouseleave = function () {
+      showcaseItem.style.transform = "scale(1)";
+      showcaseItem.style.zIndex = "1";
+      showcaseItem.classList.add("blur");
+      setTimeout(function () {
+        if (showcaseItem.parentNode) {
+          document.body.removeChild(showcaseItem);
+        }
+      }, 1000);
+    };
 
-  icon.onblur = function () {
-    showcaseItem.style.transform = "scale(1)";
-    showcaseItem.style.zIndex = "1";
-    showcaseItem.classList.add("blur");
-    setTimeout(function () {
-      if (showcaseItem.parentNode) {
-        document.body.removeChild(showcaseItem);
-      }
-    }, 1000);
-  };
+    icon.onblur = function () {
+      showcaseItem.style.transform = "scale(1)";
+      showcaseItem.style.zIndex = "1";
+      showcaseItem.classList.add("blur");
+      setTimeout(function () {
+        if (showcaseItem.parentNode) {
+          document.body.removeChild(showcaseItem);
+        }
+      }, 1000);
+    };
+  }
 }
