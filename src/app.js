@@ -6,7 +6,17 @@ var activeElement;
 var activeHighlight;
 var container = document.getElementById("floating-elements");
 var activeElementContainer = document.getElementById("active-element");
+var footnoteContainer;
 var konvaStage;
+
+window.addEventListener("mousemove", (e) => {
+  if (footnoteContainer) {
+    var x = e.clientX,
+      y = e.clientY;
+    footnoteContainer.style.top = y + 1 + "px";
+    footnoteContainer.style.left = x + 1 + "px";
+  }
+});
 
 var areas = {
   europe: {
@@ -581,21 +591,12 @@ function removeCentered(element) {
 }
 
 function createFootnote(centeredElement, item) {
-  var footnoteContainer = createElement(
+  var footnote = createElement(
     "div",
     {
       id: "footnote",
       classList: ["footnote-container"],
-      style: {
-        transform:
-          "translate(" +
-          parseFloat(centeredElement.getBoundingClientRect().left) +
-          "px, " +
-          (parseFloat(centeredElement.getBoundingClientRect().top) +
-            parseFloat(centeredElement.getBoundingClientRect().height)) +
-          "px)",
-        width: centeredElement.getBoundingClientRect().width + "px",
-      },
+      style: {},
     },
     [
       createElement(
@@ -612,7 +613,8 @@ function createFootnote(centeredElement, item) {
       ),
     ]
   );
-  activeElementContainer.appendChild(footnoteContainer);
+  activeElementContainer.appendChild(footnote);
+  footnoteContainer = footnote;
 }
 
 function clearFootnote() {
