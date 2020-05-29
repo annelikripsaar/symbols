@@ -38,6 +38,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.8.7",
     "@panzoom/panzoom": "^4.1.0",
+    "imagemin-pngquant": "^8.0.0",
     "konva": "^6.0.0",
     "papaparse": "^5.2.0"
   }
