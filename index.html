@@ -8,65 +8,47 @@
       href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400&display=swap"
       rel="stylesheet"
     />
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="dist/main.css" />
   </head>
-
-  <body>
-    <svg
-      style="width: 0; height: 0; position: absolute;"
-      aria-hidden="true"
-      focusable="false"
-      version="1.1"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <filter id="blur">
-        <feGaussianBlur stdDeviation="3" />
-      </filter>
-    </svg>
-    <svg
-      style="width: 0; height: 0; position: absolute;"
-      aria-hidden="true"
-      focusable="false"
-    >
-      <linearGradient id="my-uncool-gradient" x2="1" y2="1">
-        <stop offset="0%" stop-color="#000000" />
-        <stop offset="100%" stop-color="#000000" />
-      </linearGradient>
-      <linearGradient id="my-cool-gradient" x2="1" y2="1">
-        <stop offset="0%" stop-color="#00FF85" />
-        <stop offset="100%" stop-color="#2DBFBF" />
-      </linearGradient>
-    </svg>
-    <div class="scale-container">
-      Scale:
-      <p id="scale">20%</p>
-    </div>
-    <div class="pan-container">
-      <div id="floating-elements"></div>
-      <div id="active-element"></div>
-    </div>
-    <div class="filters">
-      <button class="filter" id="octagram">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 71 69">
-          <g id="Layer_2" data-name="Layer 2">
-            <g id="Layer_1-2" data-name="Layer 1">
-              <polygon points="18 0 18 17 32 31 33 31 33 8 27 0 18 0" />
-              <polygon points="53 17 53 0 44 0 38 8 38 31 39 31 53 17" />
-              <polygon points="18 52 18 69 27 69 33 61 33 38 32 38 18 52" />
-              <polygon points="38 38 38 61 44 69 53 69 53 52 39 38 38 38" />
-              <polygon
-                points="6 32 0.06 22.11 0 20 13 20 24.97 31.46 25 32 6 32"
-              />
-              <polygon
-                points="65 32 70.94 22.11 71 20 58 20 46.03 31.46 46 32 65 32"
-              />
-              <polygon
-                points="6 37 0.06 46.89 0 49 13 49 24.97 37.54 25 37 6 37"
-              />
-              <polygon
-                points="65 37 70.94 46.89 71 49 58 49 46.03 37.54 46 37 65 37"
-              />
-            </g>
+<body>
+  <svg style="width: 0; height: 0; position: absolute;" aria-hidden="true" focusable="false" version="1.1"
+    xmlns="http://www.w3.org/2000/svg">
+    <filter id="blur">
+      <feGaussianBlur stdDeviation="3" />
+    </filter>
+  </svg>
+  <svg style="width: 0; height: 0; position: absolute;" aria-hidden="true" focusable="false">
+    <linearGradient id="my-uncool-gradient" x2="1" y2="1">
+      <stop offset="0%" stop-color="#000000" />
+      <stop offset="100%" stop-color="#000000" />
+    </linearGradient>
+    <linearGradient id="my-cool-gradient" x2="1" y2="1">
+      <stop offset="0%" stop-color="#00FF85" />
+      <stop offset="100%" stop-color="#2DBFBF" />
+    </linearGradient>
+  </svg>
+  <div class="scale-container">
+    Scale:
+    <p id="scale">20%</p>
+  </div>
+  <div class="pan-container">
+    <div id="floating-elements"></div>
+    <div id="active-element"></div>
+  </div>
+  <div class="filters">
+    <button class="filter" id="octagram">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 71 69">
+        <g id="Layer_2" data-name="Layer 2">
+          <g id="Layer_1-2" data-name="Layer 1">
+            <polygon points="18 0 18 17 32 31 33 31 33 8 27 0 18 0" />
+            <polygon points="53 17 53 0 44 0 38 8 38 31 39 31 53 17" />
+            <polygon points="18 52 18 69 27 69 33 61 33 38 32 38 18 52" />
+            <polygon points="38 38 38 61 44 69 53 69 53 52 39 38 38 38" />
+            <polygon points="6 32 0.06 22.11 0 20 13 20 24.97 31.46 25 32 6 32" />
+            <polygon points="65 32 70.94 22.11 71 20 58 20 46.03 31.46 46 32 65 32" />
+            <polygon points="6 37 0.06 46.89 0 49 13 49 24.97 37.54 25 37 6 37" />
+            <polygon points="65 37 70.94 46.89 71 49 58 49 46.03 37.54 46 37 65 37" />
           </g>
         </svg>
       </button>

@@ -136,6 +136,7 @@ button {
 
 h1 {
   font-size: 8em;
+  font-family: "Archivo", sans-serif;
 }
 
 #about {
@@ -189,7 +190,7 @@ h1 {
 
 .large-filter:hover,
 .large-filter:focus {
-  fill: #f18000;
+  fill: #03ff01;
 }
 
 @media (max-width: 1600px) {
@@ -323,6 +324,7 @@ h1 {
   position: fixed;
   top: 0;
   left: 0;
+  color: #03ff01;
 }
 
 @keyframes fade-in-out {
