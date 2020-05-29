@@ -454,7 +454,7 @@ function createActiveImageElementFromSelected(element, item) {
 function getWindowFitTransform(element, item) {
   var heightRatio = window.innerHeight / element.offsetHeight;
   var widthRatio = window.innerWidth / element.offsetWidth;
-  var padding = 2;
+  var padding = 5;
 
   if (heightRatio < widthRatio) {
     return (
@@ -581,22 +581,38 @@ function removeCentered(element) {
 }
 
 function createFootnote(centeredElement, item) {
-  var footnote = createElement("p", {
-    id: "footnote",
-    classList: ["footnote"],
-    textContent: item.footnote,
-    style: {
-      transform:
-        "translate(" +
-        (parseFloat(centeredElement.getBoundingClientRect().left) +
-          parseFloat(centeredElement.getBoundingClientRect().width)) +
-        "px, " +
-        (parseFloat(centeredElement.getBoundingClientRect().top) +
-          parseFloat(centeredElement.getBoundingClientRect().height)) +
-        "px)",
+  var footnoteContainer = createElement(
+    "div",
+    {
+      id: "footnote",
+      classList: ["footnote-container"],
+      style: {
+        transform:
+          "translate(" +
+          parseFloat(centeredElement.getBoundingClientRect().left) +
+          "px, " +
+          (parseFloat(centeredElement.getBoundingClientRect().top) +
+            parseFloat(centeredElement.getBoundingClientRect().height)) +
+          "px)",
+        width: centeredElement.getBoundingClientRect().width + "px",
+      },
     },
-  });
-  activeElementContainer.appendChild(footnote);
+    [
+      createElement(
+        "p",
+        {
+          classList: ["footnote"],
+        },
+        [
+          createElement("span", {
+            classList: ["footnote-text"],
+            textContent: item.footnote,
+          }),
+        ]
+      ),
+    ]
+  );
+  activeElementContainer.appendChild(footnoteContainer);
 }
 
 function clearFootnote() {
