@@ -24,9 +24,9 @@ aboutButton.onclick = function () {
   aboutButton.blur();
   if (aboutSection.style.display === "block") {
     aboutButton.classList.remove("close-button");
-    aboutButton.textContent = "About";
-
-    toggleBackgroundBlur();
+    aboutButton.textContent = "Tracing Ties";
+    aboutButton.onmouseenter = colorButtonBackground();
+    aboutButton.onmouseleave = toggleBackgroundBlur();
 
     aboutSection.style.display = "none";
   } else {
@@ -48,7 +48,7 @@ aboutSection.onclick = (event) => {
   });
 
   aboutButton.classList.remove("close-button");
-  aboutButton.textContent = "About";
+  aboutButton.textContent = "Tracing Ties";
   toggleBackgroundBlur();
   aboutSection.style.display = "none";
 };
@@ -124,4 +124,12 @@ function initShowcaseItems(icon, idList) {
       };
     }
   }, 500);
+}
+
+function colorButton() {
+  aboutButton.style.backgroundColor = "#00ff6a";
+}
+
+function removeButtonColor() {
+  aboutButton.style.backgroundColor = "transparent";
 }
