@@ -137,6 +137,7 @@ button {
 h1 {
   font-weight: inherit;
   font-size: 8em;
+  font-family: "Archivo", sans-serif;
 }
 
 #about {
@@ -190,7 +191,7 @@ h1 {
 
 .large-filter:hover,
 .large-filter:focus {
-  fill: url(#my-cool-gradient) rgb(0, 221, 192);
+  fill: #03ff01;
 }
 
 @media (max-width: 1600px) {
@@ -326,6 +327,7 @@ h1 {
   position: fixed;
   top: 0;
   left: 0;
+  color: #03ff01;
 }
 
 @keyframes fade-in-out {
