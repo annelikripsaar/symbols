@@ -305,7 +305,7 @@ function createItem(item, items) {
     },
     [
       createElement("source", {
-        srcset: "images/" + item.image + ".webp",
+        srcset: "thumbnails/" + item.image + ".webp",
         type: "image/webp",
         style: {
           width: item.width * 0.1 * container.offsetWidth + "px",
