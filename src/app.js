@@ -128,15 +128,15 @@ export function run(items) {
     }
   };
 
-  /*if ("ResizeObserver" in window) {
+  if ("ResizeObserver" in window) {
     const resizeObserver = new ResizeObserver(() => {
       initializeItems(items);
     });
     resizeObserver.observe(document.body);
-  } else {*/
-  initializeItems(items);
-  toggleBackgroundBlur();
-  //}
+  } else {
+    initializeItems(items);
+    toggleBackgroundBlur();
+  }
 }
 
 function initializeItems(items) {
