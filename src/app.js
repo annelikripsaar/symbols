@@ -480,7 +480,7 @@ function createActiveImageElementFromSelected(element, item) {
         type: "image/webp",
       }),
       createElement("img", {
-        src: "images/" + item.image + ".png",
+        src: "thumbnails/" + item.image + ".png",
         classList: ["centered"],
         onload() {
           this.style.transform = getWindowFitTransform(this);
