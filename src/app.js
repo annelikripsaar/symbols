@@ -1,11 +1,13 @@
 import Panzoom from "@panzoom/panzoom";
 import { createElement } from "./utils";
-import { aboutSection, toggleBackgroundBlur } from "./about";
+import { aboutSection, toggleBackgroundBlur, removeButtonColor } from "./about";
 
-var activeElement;
+var activeElementContainer = document.getElementById("active-element");
+export var activeElement;
+
 var activeHighlight;
 var container = document.getElementById("floating-elements");
-var activeElementContainer = document.getElementById("active-element");
+var aboutButton = document.querySelector("[data-name='about']");
 var footnoteContainer;
 var konvaStage;
 
@@ -85,6 +87,8 @@ var panzoomActiveImage = Panzoom(activeElementContainer, {
 });
 
 var ESCAPE_KEYCODE = 27;
+var LEFT_KEYCODE = 37;
+var RIGHT_KEYCODE = 39;
 var ANIMATION_TIME = 200;
 
 export function run(items) {
@@ -95,7 +99,13 @@ export function run(items) {
 
   initPanZoom();
 
+  initKeyboardNavigation(items);
+
   initFilters(items);
+
+  document.getElementById("timeline-button").onclick = () => {
+    positionElementsByAge();
+  };
 
   if ("ResizeObserver" in window) {
     const resizeObserver = new ResizeObserver(() => {
@@ -114,11 +124,13 @@ function initializeItems(items) {
   Object.values(areas).forEach(function (area) {
     tagArea(area, container);
   });
-  items.forEach(createItem);
+  items.forEach((item) => createItem(item, items));
 
   if (aboutSection.style.display === "block" || activeElement) {
     document
-      .querySelectorAll(".floating-element, .tag, .filters, .scale-container")
+      .querySelectorAll(
+        ".floating-element, .tag, .filters, .scale-container, #timeline-button"
+      )
       .forEach(function (bgElement) {
         bgElement.classList.add("blur");
       });
@@ -151,7 +163,7 @@ function initFilters(items) {
       if (filter.classList.contains("active-filter")) {
         filter.classList.remove("active-filter");
         addItemsToAreas(items, areas);
-        items.forEach(createItem);
+        items.forEach((item) => createItem(item, items));
       } else {
         resetAllFilters(filters);
         filter.classList.add("active-filter");
@@ -162,7 +174,7 @@ function initFilters(items) {
         });
 
         addItemsToAreas(filteredItems, areas);
-        filteredItems.forEach(createItem);
+        filteredItems.forEach((item) => createItem(item, items));
       }
     };
   });
@@ -214,8 +226,9 @@ function initActiveElementRemoval() {
   });
 }
 
-function removeActiveElement() {
+export function removeActiveElement() {
   if (activeElement) {
+    activeElement.style.opacity = "0";
     removeCentered(activeElement);
     activeElement = null;
     activeElementContainer.style.display = "none";
@@ -237,6 +250,19 @@ function displayCurrentScale(zoomContainer, maxScale) {
   scaleContainer.textContent = currentScale;
 }
 
+function initKeyboardNavigation(items) {
+  window.addEventListener("keydown", function () {
+    if (activeElement) {
+      if (this.event.keyCode == LEFT_KEYCODE) {
+        displayPreviousItem(items);
+      }
+      if (this.event.keyCode == RIGHT_KEYCODE) {
+        displayNextItem(items);
+      }
+    }
+  });
+}
+
 function tagArea(area, container) {
   var areaTag = createElement("p", {
     id: area,
@@ -252,7 +278,7 @@ function tagArea(area, container) {
   container.appendChild(areaTag);
 }
 
-function createItem(item) {
+function createItem(item, items) {
   if (!item.image) {
     return null;
   }
@@ -271,7 +297,7 @@ function createItem(item) {
 
       onclick: function (event) {
         event.stopPropagation();
-        selectItem(element, item);
+        selectItem(element, item, items);
         setTimeout(() => {
           container.style.pointerEvents = "initial";
         }, 101);
@@ -343,14 +369,54 @@ function getRandomPositionInContainerYRange(range, container) {
   return randomPosition * container.offsetHeight;
 }
 
-function selectItem(element, item) {
+function positionElementsByAge() {
+  container.classList.add("timeline-layout");
+  panzoomMap.setOptions({
+    disableZoom: true,
+    disablePan: true,
+  });
+
+  var tags = document.querySelectorAll(".tag");
+  tags.forEach(function (tag) {
+    tag.parentNode.removeChild(tag);
+  });
+
+  var elements = document.querySelectorAll(".floating-element");
+  elements.forEach((element) => {
+    element.style.position = "static";
+  });
+
+  document
+    .querySelector(".timeline-layout")
+    .addEventListener("wheel", scrollHorizontally);
+}
+
+function scrollHorizontally(e) {
+  e = window.event || e;
+  if (e.wheelDelta) {
+    var delta = Math.max(-1, Math.min(1, e.wheelDelta));
+  } else {
+    var delta = Math.max(-1, Math.min(1, -e.deltaY));
+  }
+  document.querySelector(".timeline-layout").scrollLeft -= delta * 40;
+  e.preventDefault();
+}
+
+function selectItem(element, item, items) {
   element.style.display = "none";
+
+  aboutButton.classList.add("close-button");
+  aboutButton.textContent = "×";
+  aboutButton.onmouseenter = () => removeButtonColor();
 
   var activeImageElement = createActiveImageElementFromSelected(element, item);
   activeElementContainer.style.display = "block";
   activeElementContainer.appendChild(activeImageElement);
 
   displayCurrentScale(panzoomActiveImage, 10);
+  activeElementContainer.addEventListener("wheel", function () {
+    changeItemOnScroll(items);
+  });
 
   document
     .querySelectorAll(".floating-element, .tag, .filters")
@@ -391,42 +457,8 @@ function selectItem(element, item) {
 
   activeElement = activeImageElement;
 
-  activeElementContainer.addEventListener("wheel", function () {
-    displayCurrentScale(panzoomActiveImage, 10);
-    if (panzoomActiveImage.getScale() >= 10) {
-      var nextElement = document.getElementById(
-        parseFloat(activeElement.dataset.original) + 1
-      );
-      if (nextElement.tagName.toLowerCase() === "img") {
-        var nextElementItem = items[parseFloat(nextElement.id)];
-        panzoomActiveImage.reset();
-        removeActiveElement();
-        selectItem(nextElement, nextElementItem);
-      } else {
-        removeActiveElement();
-      }
-    } else if (panzoomActiveImage.getScale() <= 0.125) {
-      var nextElement = document.getElementById(
-        parseFloat(activeElement.dataset.original) - 1
-      );
-      if (nextElement.tagName.toLowerCase() === "img") {
-        var nextElementItem = items[parseFloat(nextElement.id)];
-        panzoomActiveImage.reset();
-        removeActiveElement();
-        selectItem(nextElement, nextElementItem);
-      } else {
-        removeActiveElement();
-      }
-    }
-  });
-
   setActiveLongInfo(item);
 }
-
-/*<picture>
-  <source srcset="img/awesomeWebPImage.webp" type="image/webp">
-  <img src="img/creakyOldJPEG.jpg" alt="Alt Text!">
-</picture>*/
 
 function createActiveImageElementFromSelected(element, item) {
   var activeImageElement = createElement(
@@ -464,22 +496,23 @@ function createActiveImageElementFromSelected(element, item) {
 function getWindowFitTransform(element, item) {
   var heightRatio = window.innerHeight / element.offsetHeight;
   var widthRatio = window.innerWidth / element.offsetWidth;
-  var padding = 5;
+  var heightPadding = 0.5;
+  var widthPadding = 2;
 
   if (heightRatio < widthRatio) {
     return (
       "translate(-50%, -50%) scale(" +
-      (heightRatio - padding) +
+      (heightRatio - heightPadding) +
       ", " +
-      (heightRatio - padding) +
+      (heightRatio - heightPadding) +
       ")"
     );
   } else {
     return (
       "translate(-50%, -50%) scale(" +
-      (widthRatio - padding) +
+      (widthRatio - widthPadding) +
       ", " +
-      (widthRatio - padding) +
+      (widthRatio - widthPadding) +
       ")"
     );
   }
@@ -670,6 +703,46 @@ function setActiveLongInfo(item) {
 function clearActiveLongInfo() {
   var infoContainer = document.getElementById("long-info");
   infoContainer.textContent = "";
+}
+
+function changeItemOnScroll(items) {
+  displayCurrentScale(panzoomActiveImage, 10);
+  if (panzoomActiveImage.getScale() >= 10) {
+    displayNextItem(items);
+  } else if (panzoomActiveImage.getScale() <= 0.125) {
+    displayPreviousItem(items);
+  }
+}
+
+function displayNextItem(items) {
+  var nextElement = document.getElementById(
+    parseFloat(activeElement.dataset.original) + 1
+  );
+
+  if (nextElement.tagName.toLowerCase() === "picture") {
+    panzoomActiveImage.reset();
+    removeActiveElement();
+
+    var nextElementItem = items[parseFloat(nextElement.id)];
+    selectItem(nextElement, nextElementItem, items);
+  } else {
+    removeActiveElement();
+  }
+}
+
+function displayPreviousItem(items) {
+  var nextElement = document.getElementById(
+    parseFloat(activeElement.dataset.original) - 1
+  );
+  if (nextElement.tagName.toLowerCase() === "picture") {
+    panzoomActiveImage.reset();
+    removeActiveElement();
+
+    var nextElementItem = items[parseFloat(nextElement.id)];
+    selectItem(nextElement, nextElementItem, items);
+  } else {
+    removeActiveElement();
+  }
 }
 
 function saveImageWithHitArea(Konva, image, container) {

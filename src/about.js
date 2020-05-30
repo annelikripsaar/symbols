@@ -1,4 +1,5 @@
 import { createElement } from "./utils";
+import { activeElement, removeActiveElement } from "./app";
 
 var aboutButton = document.querySelector("[data-name='about']");
 export const aboutSection = document.getElementById("about");
@@ -25,17 +26,29 @@ aboutButton.onclick = function () {
   if (aboutSection.style.display === "block") {
     aboutButton.classList.remove("close-button");
     aboutButton.textContent = "Tracing Ties";
-    aboutButton.onmouseenter = colorButtonBackground();
-    aboutButton.onmouseleave = toggleBackgroundBlur();
-
-    aboutSection.style.display = "none";
-  } else {
-    aboutButton.classList.add("close-button");
-    aboutButton.textContent = "×";
+    aboutButton.onmouseenter = () => colorButton();
+    aboutButton.onmouseleave = () => removeButtonColor();
 
     toggleBackgroundBlur();
+    aboutSection.style.display = "none";
+  } else {
+    if (activeElement) {
+      aboutButton.classList.remove("close-button");
+      aboutButton.textContent = "Tracing Ties";
 
-    aboutSection.style.display = "block";
+      aboutButton.onmouseenter = () => colorButton();
+      aboutButton.onmouseleave = () => removeButtonColor();
+
+      removeActiveElement();
+    } else {
+      aboutButton.classList.add("close-button");
+      aboutButton.textContent = "×";
+      aboutButton.onmouseenter = () => removeButtonColor();
+
+      toggleBackgroundBlur();
+
+      aboutSection.style.display = "block";
+    }
   }
 };
 
@@ -49,13 +62,17 @@ aboutSection.onclick = (event) => {
 
   aboutButton.classList.remove("close-button");
   aboutButton.textContent = "Tracing Ties";
+  aboutButton.onmouseenter = () => colorButton();
+  aboutButton.onmouseleave = () => removeButtonColor();
   toggleBackgroundBlur();
   aboutSection.style.display = "none";
 };
 
 export function toggleBackgroundBlur() {
   document
-    .querySelectorAll(".floating-element, .tag, .filters, .scale-container")
+    .querySelectorAll(
+      ".floating-element, .tag, .filters, .scale-container, #timeline-button"
+    )
     .forEach(function (bgElement) {
       bgElement.classList.toggle("blur");
     });
@@ -127,9 +144,9 @@ function initShowcaseItems(icon, idList) {
 }
 
 function colorButton() {
-  aboutButton.style.backgroundColor = "#00ff6a";
+  aboutButton.style.backgroundColor = "#73FFAD";
 }
 
-function removeButtonColor() {
+export function removeButtonColor() {
   aboutButton.style.backgroundColor = "transparent";
 }

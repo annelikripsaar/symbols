@@ -35,12 +35,12 @@ a {
 
 p::selection,
 h1::selection {
-  background: #00ff6a; /* WebKit/Blink Browsers */
+  background: #40ff8f; /* WebKit/Blink Browsers */
 }
 
 p::-moz-selection,
 h1::-moz-selection {
-  background: #00ff6a; /* Gecko Browsers */
+  background: #40ff8f; /* Gecko Browsers */
 }
 
 button {
@@ -112,20 +112,23 @@ button {
   fill: #00ff6a;
 }
 
+button {
+  background-color: transparent;
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  z-index: 6;
+}
+
 [data-name="about"] {
   position: absolute;
   right: 0;
   top: 0;
   margin-top: 16px;
   margin-right: 16px;
-  background-color: transparent;
-  border: none;
-  font-family: inherit;
-  font-size: inherit;
-  z-index: 2;
 }
 
-[data-name="about"]:hover {
+button:hover {
   cursor: pointer;
 }
 
@@ -287,6 +290,23 @@ h1 {
   padding: 0 8px;
 }
 
+#timeline-button {
+  position: absolute;
+  bottom: 16px;
+  right: 24px;
+}
+
+#timeline-button:hover {
+  background-color: #73ffad;
+}
+
+.timeline-layout {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  overflow-x: scroll;
+}
+
 .floating-element {
   position: absolute;
   transform: translate(0) scale(1, 1);
@@ -347,7 +367,7 @@ h1 {
 }
 
 .footnote-text {
-  background-color: #00ff6a;
+  background-color: #40ff8f;
 }
 
 @keyframes fade-in-out {
