@@ -228,6 +228,8 @@ function initActiveElementRemoval() {
 
 export function removeActiveElement() {
   if (activeElement) {
+    aboutButton.classList.remove("close-button");
+    aboutButton.textContent = "Tracing Ties";
     activeElement.style.opacity = "0";
     removeCentered(activeElement);
     activeElement = null;

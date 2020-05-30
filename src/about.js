@@ -33,9 +33,6 @@ aboutButton.onclick = function () {
     aboutSection.style.display = "none";
   } else {
     if (activeElement) {
-      aboutButton.classList.remove("close-button");
-      aboutButton.textContent = "Tracing Ties";
-
       aboutButton.onmouseenter = () => colorButton();
       aboutButton.onmouseleave = () => removeButtonColor();
 
