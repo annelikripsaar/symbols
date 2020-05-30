@@ -1,10 +1,11 @@
 import Papa from "papaparse";
 import csv from "../data.csv";
 
-export default Papa.parse(csv, { header: true }).data.map(function (
-  value,
-  index
-) {
+const data = Papa.parse(csv, { header: true }).data;
+data.sort(
+  (a, b) => parseFloat(a["Sorting year"]) - parseFloat(b["Sorting year"])
+);
+export default data.map(function (value, index) {
   return {
     id: index,
     name: value.Name,
