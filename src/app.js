@@ -24,33 +24,33 @@ window.addEventListener("mousemove", (e) => {
 var areas = {
   europe: {
     name: "Europe",
-    x: [0.3, 0.5],
-    y: [0.1, 0.5],
+    x: [0.28, 0.55],
+    y: [0.07, 0.55],
   },
   asia: {
     name: "Asia",
-    x: [0.7, 0.95],
-    y: [0.3, 0.7],
+    x: [0.67, 0.96],
+    y: [0.12, 0.88],
   },
   africa: {
     name: "Africa",
-    x: [0.4, 0.6],
-    y: [0.7, 0.8],
+    x: [0.33, 0.55],
+    y: [0.73, 0.85],
   },
   southamerica: {
     name: "South America",
-    x: [0.1, 0.2],
+    x: [0.07, 0.2],
     y: [0.7, 0.9],
   },
   northamerica: {
     name: "North America",
-    x: [0.1, 0.2],
+    x: [0.05, 0.2],
     y: [0.2, 0.4],
   },
   centralamerica: {
     name: "Central America",
     x: [0.1, 0.2],
-    y: [0.5, 0.6],
+    y: [0.52, 0.6],
   },
 };
 
@@ -380,7 +380,7 @@ function positionElementByGroup(element, item) {
   if (item.group) {
     Object.values(areas).forEach(function (area) {
       if (item.group === area.name) {
-        positionInGroup(element, area, container);
+        positionInGroup(element, area, container, item);
       }
     });
   } else {
@@ -388,21 +388,21 @@ function positionElementByGroup(element, item) {
   }
 }
 
-function positionInGroup(element, area, container) {
+function positionInGroup(element, area, container, item) {
   element.style.left =
-    getRandomPositionInContainerXRange(area.x, container) + "px";
+    getRelativePositionInContainerXRange(area.x, container, item) + "px";
   element.style.top =
-    getRandomPositionInContainerYRange(area.y, container) + "px";
+    getRelativePositionInContainerYRange(area.y, container, item) + "px";
 }
 
-function getRandomPositionInContainerXRange(range, container) {
-  var randomPosition = range[0] + Math.random() * (range[1] - range[0]);
-  return randomPosition * container.offsetWidth;
+function getRelativePositionInContainerXRange(range, container, item) {
+  var relativePosition = range[0] + item.xpos * (range[1] - range[0]);
+  return relativePosition * container.offsetWidth;
 }
 
-function getRandomPositionInContainerYRange(range, container) {
-  var randomPosition = range[0] + Math.random() * (range[1] - range[0]);
-  return randomPosition * container.offsetHeight;
+function getRelativePositionInContainerYRange(range, container, item) {
+  var relativePosition = range[0] + item.ypos * (range[1] - range[0]);
+  return relativePosition * container.offsetHeight;
 }
 
 function positionElementsByAge() {
@@ -477,9 +477,16 @@ function selectItem(element, item, items) {
   });
 
   panzoomActiveImage.setOptions({
-    disableZoom: false,
-    disablePan: false,
+    disableZoom: true,
+    disablePan: true,
   });
+
+  setTimeout(() => {
+    panzoomActiveImage.setOptions({
+      disableZoom: false,
+      disablePan: false,
+    });
+  }, 1000);
 
   activeElementContainer.addEventListener(
     "wheel",
@@ -538,7 +545,7 @@ function createActiveImageElementFromSelected(element, item) {
         onload() {
           this.style.transform = getWindowFitTransform(this);
           activeImageElement.style.opacity = 1;
-          handleHighlighting(this, item);
+          setTimeout(() => handleHighlighting(this, item), 1000);
         },
       }),
     ]
@@ -767,8 +774,20 @@ function changeItemOnScroll(items) {
   displayCurrentScale(panzoomActiveImage, 10);
   if (panzoomActiveImage.getScale() >= 10) {
     displayNextItem(items);
+    setTimeout(() => {
+      panzoomActiveImage.setOptions({
+        disableZoom: false,
+        disablePan: false,
+      });
+    }, 1000);
   } else if (panzoomActiveImage.getScale() <= 0.125) {
     displayPreviousItem(items);
+    setTimeout(() => {
+      panzoomActiveImage.setOptions({
+        disableZoom: false,
+        disablePan: false,
+      });
+    }, 1000);
   }
 }
 
@@ -783,6 +802,10 @@ function displayNextItem(items) {
 
     var nextElementItem = items[parseFloat(nextElement.id)];
     selectItem(nextElement, nextElementItem, items);
+    panzoomActiveImage.setOptions({
+      disableZoom: true,
+      disablePan: true,
+    });
   } else {
     removeActiveElement();
   }
@@ -798,6 +821,10 @@ function displayPreviousItem(items) {
 
     var nextElementItem = items[parseFloat(nextElement.id)];
     selectItem(nextElement, nextElementItem, items);
+    panzoomActiveImage.setOptions({
+      disableZoom: true,
+      disablePan: true,
+    });
   } else {
     removeActiveElement();
   }

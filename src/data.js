@@ -13,6 +13,8 @@ export default data.map(function (value, index) {
     footnote: value.Footnote || null,
     location: value.Location || null,
     group: value.Group,
+    xpos: parseFloat(value["X position"]) || null,
+    ypos: parseFloat(value["Y position"]) || null,
     dating: value.Dating || null,
     material: value.Material || null,
     size: value.Size || null,

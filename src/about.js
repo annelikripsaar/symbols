@@ -12,11 +12,11 @@ export function run() {
 
   document.querySelectorAll(".large-filter").forEach(function (icon) {
     if (icon.id === "large-octagram") {
-      initShowcaseItems(icon, ["58"]);
+      initShowcaseItems(icon, ["88", "85", "18", "22"]);
     } else if (icon.id === "large-doublecross") {
-      initShowcaseItems(icon, ["19"]);
+      initShowcaseItems(icon, ["86", "0", "93"]);
     } else {
-      initShowcaseItems(icon, ["83"]);
+      initShowcaseItems(icon, ["11", "82", "95", "74"]);
     }
   });
 }
@@ -76,68 +76,79 @@ export function toggleBackgroundBlur() {
 }
 
 function initShowcaseItems(icon, idList) {
-  setTimeout(() => {
-    var itemA = document.getElementById(idList[0]);
-    if (itemA) {
-      var showcaseItem = createElement("img", {
-        classList: ["showcase-item"],
-        src: itemA.querySelector("img").src,
-        style: {
-          position: "absolute",
-          left: itemA.style.left,
-          top: itemA.style.top,
-          width: itemA.offsetWidth + "px",
-          transition: "transform 0.2s",
-        },
-      });
+  const iconItems = [];
 
-      icon.onmouseenter = function () {
-        showcaseItem.style.left = itemA.style.left;
-        showcaseItem.style.top = itemA.style.top;
-        document.body.appendChild(showcaseItem);
-        showcaseItem.classList.remove("blur");
+  idList.forEach((id) => {
+    setTimeout(() => {
+      var itemA = document.getElementById(id);
+      if (itemA) {
+        var showcaseItem = createElement("img", {
+          classList: ["showcase-item"],
+          src: itemA.querySelector("img").src,
+          style: {
+            position: "absolute",
+            left: itemA.style.left,
+            top: itemA.style.top,
+            width: itemA.offsetWidth + "px",
+            transition: "transform 0.2s",
+          },
+        });
 
-        setTimeout(function () {
-          showcaseItem.style.transform = "scale(5)";
-          showcaseItem.style.zIndex = "5";
-        }, 100);
-      };
+        iconItems.push(showcaseItem);
+      }
+    }, 500);
+  });
 
-      icon.onfocus = function () {
-        showcaseItem.style.left = itemA.style.left;
-        showcaseItem.style.top = itemA.style.top;
-        document.body.appendChild(showcaseItem);
-        showcaseItem.classList.remove("blur");
+  icon.onmouseenter = function () {
+    iconItems.forEach((showcaseItem) => {
+      document.body.appendChild(showcaseItem);
+      showcaseItem.classList.remove("blur");
 
-        setTimeout(function () {
-          showcaseItem.style.transform = "scale(5)";
-          showcaseItem.style.zIndex = "5";
-        }, 100);
-      };
+      setTimeout(function () {
+        showcaseItem.style.transform = "scale(10)";
+        showcaseItem.style.zIndex = "5";
+      }, 100);
+    });
+  };
 
-      icon.onmouseleave = function () {
-        showcaseItem.style.transform = "scale(1)";
-        showcaseItem.style.zIndex = "1";
-        showcaseItem.classList.add("blur");
-        setTimeout(function () {
-          if (showcaseItem.parentNode) {
-            document.body.removeChild(showcaseItem);
-          }
-        }, 1000);
-      };
+  icon.onfocus = function () {
+    iconItems.forEach((showcaseItem) => {
+      document.body.appendChild(showcaseItem);
+      showcaseItem.classList.remove("blur");
 
-      icon.onblur = function () {
-        showcaseItem.style.transform = "scale(1)";
-        showcaseItem.style.zIndex = "1";
-        showcaseItem.classList.add("blur");
-        setTimeout(function () {
-          if (showcaseItem.parentNode) {
-            document.body.removeChild(showcaseItem);
-          }
-        }, 1000);
-      };
-    }
-  }, 500);
+      setTimeout(function () {
+        showcaseItem.style.transform = "scale(10)";
+        showcaseItem.style.zIndex = "5";
+      }, 100);
+    });
+  };
+
+  icon.onmouseleave = function () {
+    console.log("mouse left!");
+    iconItems.forEach((showcaseItem) => {
+      showcaseItem.style.transform = "scale(1)";
+      showcaseItem.style.zIndex = "1";
+      showcaseItem.classList.add("blur");
+      setTimeout(function () {
+        if (showcaseItem.parentNode) {
+          document.body.removeChild(showcaseItem);
+        }
+      }, 1000);
+    });
+  };
+
+  icon.onblur = function () {
+    iconItems.forEach((showcaseItem) => {
+      showcaseItem.style.transform = "scale(1)";
+      showcaseItem.style.zIndex = "1";
+      showcaseItem.classList.add("blur");
+      setTimeout(function () {
+        if (showcaseItem.parentNode) {
+          document.body.removeChild(showcaseItem);
+        }
+      }, 1000);
+    });
+  };
 }
 
 function colorButton() {
