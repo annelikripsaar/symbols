@@ -126,7 +126,6 @@ function initShowcaseItems(icon, idList) {
   };
 
   icon.onmouseleave = function () {
-    console.log("mouse left!");
     iconItems.forEach((showcaseItem) => {
       showcaseItem.style.transform = "scale(1)";
       showcaseItem.style.zIndex = "1";

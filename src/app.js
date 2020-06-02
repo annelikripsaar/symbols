@@ -606,12 +606,11 @@ async function handleHighlighting(activeImageElement, item) {
       existingTimeout = setTimeout(function () {
         document.getElementById("highlight-container").style.pointerEvents =
           "initial";
-      }, 1000);
+      }, 5000);
     },
   });
   if (!document.querySelector(".highlight")) {
     activeElementContainer.appendChild(highlight);
-    console.log("added a highlight");
   }
   activeHighlight = highlight;
 
