@@ -609,7 +609,10 @@ async function handleHighlighting(activeImageElement, item) {
       }, 1000);
     },
   });
-  activeElementContainer.appendChild(highlight);
+  if (!document.querySelector(".highlight")) {
+    activeElementContainer.appendChild(highlight);
+    console.log("added a highlight");
+  }
   activeHighlight = highlight;
 
   const [highlightImage, Konva] = await Promise.all([

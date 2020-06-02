@@ -10,15 +10,17 @@ export function run() {
 
   aboutSection.style.display = "block";
 
-  document.querySelectorAll(".large-filter").forEach(function (icon) {
-    if (icon.id === "large-octagram") {
-      initShowcaseItems(icon, ["88", "85", "18", "22"]);
-    } else if (icon.id === "large-doublecross") {
-      initShowcaseItems(icon, ["86", "0", "93"]);
-    } else {
-      initShowcaseItems(icon, ["11", "82", "95", "74"]);
-    }
-  });
+  setTimeout(() => {
+    document.querySelectorAll(".large-filter").forEach(function (icon) {
+      if (icon.id === "large-octagram") {
+        initShowcaseItems(icon, ["88", "85", "18", "22"]);
+      } else if (icon.id === "large-doublecross") {
+        initShowcaseItems(icon, ["86", "0", "93"]);
+      } else {
+        initShowcaseItems(icon, ["11", "82", "95", "74"]);
+      }
+    });
+  }, 1000);
 }
 
 aboutButton.onclick = function () {
