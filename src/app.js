@@ -536,7 +536,7 @@ function createActiveImageElementFromSelected(element, item) {
     },
     [
       createElement("source", {
-        srcset: "images/" + item.image + ".webp",
+        srcset: "images/" + item.image + ".png",
         type: "image/webp",
       }),
       createElement("img", {
