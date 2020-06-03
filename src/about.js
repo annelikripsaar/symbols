@@ -81,24 +81,22 @@ function initShowcaseItems(icon, idList) {
   const iconItems = [];
 
   idList.forEach((id) => {
-    setTimeout(() => {
-      var itemA = document.getElementById(id);
-      if (itemA) {
-        var showcaseItem = createElement("img", {
-          classList: ["showcase-item"],
-          src: "images/" + itemA.querySelector("img").src.split("/")[4],
-          style: {
-            position: "absolute",
-            left: itemA.style.left,
-            top: itemA.style.top,
-            width: itemA.offsetWidth + "px",
-            transition: "transform 0.2s",
-          },
-        });
+    var itemA = document.getElementById(id);
+    if (itemA) {
+      var showcaseItem = createElement("img", {
+        classList: ["showcase-item"],
+        src: "images/" + itemA.querySelector("img").src.split("/")[4],
+        style: {
+          position: "absolute",
+          left: itemA.style.left,
+          top: itemA.style.top,
+          width: itemA.offsetWidth + "px",
+          transition: "transform 0.2s",
+        },
+      });
 
-        iconItems.push(showcaseItem);
-      }
-    }, 500);
+      iconItems.push(showcaseItem);
+    }
   });
 
   icon.onmouseenter = function () {
@@ -134,7 +132,7 @@ function initShowcaseItems(icon, idList) {
         if (showcaseItem.parentNode) {
           document.body.removeChild(showcaseItem);
         }
-      }, 1000);
+      }, 200);
     });
   };
 
