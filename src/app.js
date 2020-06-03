@@ -283,7 +283,22 @@ function displayCurrentScale(zoomContainer, maxScale) {
   var currentScale =
     Math.floor((zoomContainer.getScale() / maxScale) * 100) + "%";
   var scaleContainer = document.getElementById("scale");
-  scaleContainer.textContent = currentScale;
+  scaleContainer.textContent = "Detail: " + currentScale;
+}
+
+function displayActiveElementScale(zoomContainer, activeElement, item) {
+  const itemActualSize = item.width * 100;
+  const imageWidth = activeElement
+    .querySelector(".centered")
+    .getBoundingClientRect().width;
+  const devicePPCM = (window.devicePixelRatio * 96) / 2.54;
+  const imageActualSize = imageWidth / devicePPCM;
+
+  const scale =
+    (imageActualSize / itemActualSize) * zoomContainer.getScale() * 100;
+  var currentScale = "~" + Math.floor(scale) + "%";
+  var scaleContainer = document.getElementById("scale");
+  scaleContainer.textContent = "Scale: " + currentScale;
 }
 
 function initKeyboardNavigation(items) {
@@ -460,9 +475,12 @@ function selectItem(element, item, items) {
   activeElementContainer.style.display = "block";
   activeElementContainer.appendChild(activeImageElement);
 
-  displayCurrentScale(panzoomActiveImage, 10);
+  setTimeout(() => {
+    displayActiveElementScale(panzoomActiveImage, activeImageElement, item);
+  }, 1000);
+
   activeElementContainer.addEventListener("wheel", function () {
-    changeItemOnScroll(items);
+    changeItemOnScroll(items, activeImageElement, item);
   });
 
   document
@@ -553,10 +571,10 @@ function createActiveImageElementFromSelected(element, item) {
   return activeImageElement;
 }
 
-function getWindowFitTransform(element, item) {
+function getWindowFitTransform(element) {
   var heightRatio = window.innerHeight / element.offsetHeight;
   var widthRatio = window.innerWidth / element.offsetWidth;
-  var heightPadding = 0.5;
+  var heightPadding = 2;
   var widthPadding = 2;
 
   if (heightRatio < widthRatio) {
@@ -627,7 +645,7 @@ async function handleHighlighting(activeImageElement, item) {
     height: bounds.height,
   });
   hitArea.on("mouseover", function () {
-    createFootnote(activeImageElement, item);
+    createFootnote(item);
   });
   hitArea.on("mouseout", clearFootnote);
   highlight.addEventListener("click", clearFootnote);
@@ -690,7 +708,7 @@ function removeCentered(element) {
   }
 }
 
-function createFootnote(centeredElement, item) {
+function createFootnote(item) {
   var footnote = createElement(
     "div",
     {
@@ -772,8 +790,8 @@ function clearActiveLongInfo() {
   infoContainer.textContent = "";
 }
 
-function changeItemOnScroll(items) {
-  displayCurrentScale(panzoomActiveImage, 10);
+function changeItemOnScroll(items, activeElement, item) {
+  displayActiveElementScale(panzoomActiveImage, activeElement, item);
   if (panzoomActiveImage.getScale() >= 10) {
     displayNextItem(items);
     setTimeout(() => {
