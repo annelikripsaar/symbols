@@ -10,7 +10,7 @@ export function run() {
 
   aboutSection.style.display = "block";
 
-  setTimeout(() => {
+  window.onload = () => {
     document.querySelectorAll(".large-filter").forEach(function (icon) {
       if (icon.id === "large-octagram") {
         initShowcaseItems(icon, ["88", "85", "18", "22"]);
@@ -20,7 +20,7 @@ export function run() {
         initShowcaseItems(icon, ["11", "82", "95", "74"]);
       }
     });
-  }, 1000);
+  };
 }
 
 aboutButton.onclick = function () {
