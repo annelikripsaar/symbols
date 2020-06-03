@@ -25,7 +25,7 @@ var areas = {
   europe: {
     name: "Europe",
     x: [0.28, 0.55],
-    y: [0.07, 0.55],
+    y: [0.09, 0.55],
   },
   asia: {
     name: "Asia",
@@ -39,18 +39,18 @@ var areas = {
   },
   southamerica: {
     name: "South America",
-    x: [0.07, 0.2],
-    y: [0.7, 0.9],
+    x: [0.04, 0.2],
+    y: [0.71, 0.9],
   },
   northamerica: {
     name: "North America",
-    x: [0.05, 0.2],
-    y: [0.2, 0.4],
+    x: [0.02, 0.2],
+    y: [0.15, 0.35],
   },
   centralamerica: {
     name: "Central America",
-    x: [0.1, 0.2],
-    y: [0.52, 0.6],
+    x: [0.06, 0.2],
+    y: [0.5, 0.6],
   },
 };
 
@@ -308,7 +308,7 @@ function tagArea(area, container) {
       position: "absolute",
       left: area.x[0] * container.offsetWidth + "px",
       top: area.y[0] * container.offsetHeight + "px",
-      transform: "translate(-100%, -100%)",
+      transform: "translateY(-225%)",
     },
   });
   container.appendChild(areaTag);
@@ -536,7 +536,7 @@ function createActiveImageElementFromSelected(element, item) {
     },
     [
       createElement("source", {
-        srcset: "images/" + item.image + ".png",
+        srcset: "images/" + item.image + ".webp",
         type: "image/webp",
       }),
       createElement("img", {
