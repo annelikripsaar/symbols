@@ -480,7 +480,7 @@ function selectItem(element, item, items) {
   }, 1000);
 
   activeElementContainer.addEventListener("wheel", function () {
-    changeItemOnScroll(items, activeImageElement, item);
+    changeScaleOnScroll(activeImageElement, item);
   });
 
   document
@@ -790,9 +790,9 @@ function clearActiveLongInfo() {
   infoContainer.textContent = "";
 }
 
-function changeItemOnScroll(items, activeElement, item) {
+function changeScaleOnScroll(activeElement, item) {
   displayActiveElementScale(panzoomActiveImage, activeElement, item);
-  if (panzoomActiveImage.getScale() >= 10) {
+  /*if (panzoomActiveImage.getScale() >= 10) {
     displayNextItem(items);
     setTimeout(() => {
       panzoomActiveImage.setOptions({
@@ -807,7 +807,7 @@ function changeItemOnScroll(items, activeElement, item) {
         disableZoom: false,
         disablePan: false,
       });
-    }, 1000);
+    }, 1000);*/
   }
 }
 
