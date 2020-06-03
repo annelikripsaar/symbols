@@ -86,7 +86,7 @@ function initShowcaseItems(icon, idList) {
       if (itemA) {
         var showcaseItem = createElement("img", {
           classList: ["showcase-item"],
-          src: itemA.querySelector("img").src,
+          src: "images/" + itemA.querySelector("img").src.split("/")[4],
           style: {
             position: "absolute",
             left: itemA.style.left,
