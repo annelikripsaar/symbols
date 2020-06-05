@@ -683,6 +683,7 @@ function removeCentered(element) {
   }, ANIMATION_TIME);
 
   clearActiveLongInfo();
+  clearFootnote();
 
   document
     .querySelectorAll(".floating-element, .tag, .filters, #timeline-button")
@@ -811,6 +812,7 @@ function changeScaleOnScroll(activeElement, item) {
 }
 
 function displayNextItem(items) {
+  clearFootnote();
   var nextElement = document.getElementById(
     parseFloat(activeElement.dataset.original) + 1
   );
@@ -832,6 +834,7 @@ function displayNextItem(items) {
 }
 
 function displayPreviousItem(items) {
+  clearFootnote();
   var nextElement = document.getElementById(
     parseFloat(activeElement.dataset.original) - 1
   );
