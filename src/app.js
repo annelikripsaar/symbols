@@ -436,7 +436,8 @@ function positionElementsByAge() {
   scaleContainer.style.display = "none";
 
   var elements = document.querySelectorAll(".floating-element");
-  elements.forEach((element) => {
+  elements.forEach((element, index) => {
+    createTimeTags(element, index);
     element.style.position = "static";
     element.style.opacity = "1";
     element.querySelector("img").style.width =
@@ -448,6 +449,46 @@ function positionElementsByAge() {
   document
     .querySelector(".timeline-layout")
     .addEventListener("wheel", scrollHorizontally);
+}
+
+function createTimeTags(element, id) {
+  if (id === 0) {
+    element.dataset.content = "1900 B.C.";
+  } else if (id === 3) {
+    element.dataset.content = "750 B.C.";
+  } else if (id === 5) {
+    element.dataset.content = "200";
+  } else if (id === 8) {
+    element.dataset.content = "500";
+  } else if (id === 11) {
+    element.dataset.content = "600";
+  } else if (id === 14) {
+    element.dataset.content = "700";
+  } else if (id === 15) {
+    element.dataset.content = "800";
+  } else if (id === 17) {
+    element.dataset.content = "1100";
+  } else if (id === 21) {
+    element.dataset.content = "1200";
+  } else if (id === 24) {
+    element.dataset.content = "1300";
+  } else if (id === 29) {
+    element.dataset.content = "1400";
+  } else if (id === 32) {
+    element.dataset.content = "1500";
+  } else if (id === 36) {
+    element.dataset.content = "1600";
+  } else if (id === 38) {
+    element.dataset.content = "1700";
+  } else if (id === 42) {
+    element.dataset.content = "1800";
+  } else if (id === 58) {
+    element.dataset.content = "1820";
+  } else if (id === 63) {
+    element.dataset.content = "1850";
+  } else if (id === 67) {
+    element.dataset.content = "1900";
+  }
 }
 
 function scrollHorizontally(e) {
