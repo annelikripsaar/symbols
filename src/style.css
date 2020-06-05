@@ -410,6 +410,7 @@ h1 {
   display: flex;
   justify-content: center;
   z-index: 5;
+  pointer-events: none;
 }
 
 .footnote {
@@ -421,6 +422,10 @@ h1 {
 
 .footnote-text {
   background-color: #40ff8f;
+}
+
+.showcase-item {
+  transition: all 0.2s;
 }
 
 @keyframes fade-in-out {

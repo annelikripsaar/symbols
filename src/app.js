@@ -574,7 +574,7 @@ function createActiveImageElementFromSelected(element, item) {
 function getWindowFitTransform(element) {
   var heightRatio = window.innerHeight / element.offsetHeight;
   var widthRatio = window.innerWidth / element.offsetWidth;
-  var heightPadding = 2;
+  var heightPadding = 1;
   var widthPadding = 2;
 
   if (heightRatio < widthRatio) {
@@ -808,7 +808,6 @@ function changeScaleOnScroll(activeElement, item) {
         disablePan: false,
       });
     }, 1000);*/
-  }
 }
 
 function displayNextItem(items) {
@@ -816,38 +815,41 @@ function displayNextItem(items) {
     parseFloat(activeElement.dataset.original) + 1
   );
 
-  if (nextElement.tagName.toLowerCase() === "picture") {
-    panzoomActiveImage.reset();
-    removeActiveElement();
-
+  panzoomActiveImage.reset();
+  removeActiveElement();
+  if (nextElement) {
     var nextElementItem = items[parseFloat(nextElement.id)];
-    selectItem(nextElement, nextElementItem, items);
-    panzoomActiveImage.setOptions({
-      disableZoom: true,
-      disablePan: true,
-    });
   } else {
-    removeActiveElement();
+    nextElement = document.getElementById("0");
+    var nextElementItem = items[0];
   }
+
+  selectItem(nextElement, nextElementItem, items);
+  panzoomActiveImage.setOptions({
+    disableZoom: true,
+    disablePan: true,
+  });
 }
 
 function displayPreviousItem(items) {
   var nextElement = document.getElementById(
     parseFloat(activeElement.dataset.original) - 1
   );
-  if (nextElement.tagName.toLowerCase() === "picture") {
-    panzoomActiveImage.reset();
-    removeActiveElement();
+  panzoomActiveImage.reset();
+  removeActiveElement();
 
+  if (nextElement) {
     var nextElementItem = items[parseFloat(nextElement.id)];
-    selectItem(nextElement, nextElementItem, items);
-    panzoomActiveImage.setOptions({
-      disableZoom: true,
-      disablePan: true,
-    });
   } else {
-    removeActiveElement();
+    nextElement = document.getElementById((items.length - 1).toString());
+    console.log(nextElement);
+    var nextElementItem = items[items.length - 1];
   }
+  selectItem(nextElement, nextElementItem, items);
+  panzoomActiveImage.setOptions({
+    disableZoom: true,
+    disablePan: true,
+  });
 }
 
 function saveImageWithHitArea(Konva, image, container) {

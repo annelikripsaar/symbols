@@ -128,11 +128,10 @@ function initShowcaseItems(icon, idList) {
       showcaseItem.style.transform = "scale(1)";
       showcaseItem.style.zIndex = "1";
       showcaseItem.classList.add("blur");
-      setTimeout(function () {
-        if (showcaseItem.parentNode) {
-          document.body.removeChild(showcaseItem);
-        }
-      }, 200);
+      if (showcaseItem.parentNode) {
+        document.body.removeChild(showcaseItem);
+      }
+      //add 200s timeout if mouseleave issue gets fixes
     });
   };
 
@@ -145,7 +144,7 @@ function initShowcaseItems(icon, idList) {
         if (showcaseItem.parentNode) {
           document.body.removeChild(showcaseItem);
         }
-      }, 1000);
+      }, 200);
     });
   };
 }
