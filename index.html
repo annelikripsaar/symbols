@@ -43,7 +43,7 @@
     <div id="active-element"></div>
   </div>
   <div class="filters">
-    <button class="filter" id="octagram">
+    <button class="filter" data-name="octagram">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 71 69">
         <g id="Layer_2" data-name="Layer 2">
           <g id="Layer_1-2" data-name="Layer 1">
@@ -58,7 +58,7 @@
           </g>
       </svg>
     </button>
-    <button class="filter" id="doublecross">
+    <button class="filter" data-name="doublecross">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72">
         <g id="Layer_2" data-name="Layer 2">
           <g id="Layer_1-2" data-name="Layer 1">
@@ -68,7 +68,7 @@
         </g>
       </svg>
     </button>
-    <button class="filter" id="rhomb">
+    <button class="filter" data-name="rhomb">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72.63 72.24">
         <g id="Layer_2" data-name="Layer 2">
           <g id="Layer_1-2" data-name="Layer 1">
@@ -94,7 +94,7 @@
     </p>
     <div class="symbols">
       <div class="large-filters">
-        <button id="large-octagram" class="large-filter">
+        <button id="large-octagram" class="large-filter" data-name="octagram">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 71 69">
             <g id="Layer_2" data-name="Layer 2">
               <g id="Layer_1-2" data-name="Layer 1">
@@ -110,7 +110,7 @@
             </g>
           </svg>
         </button>
-        <button id="large-doublecross" class="large-filter">
+        <button id="large-doublecross" class="large-filter" data-name="doublecross">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72">
             <g id="Layer_2" data-name="Layer 2">
               <g id="Layer_1-2" data-name="Layer 1">
@@ -120,7 +120,7 @@
             </g>
           </svg>
         </button>
-        <button id="large-rhomb" class="large-filter">
+        <button id="large-rhomb" class="large-filter" data-name="rhomb">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72.63 72.24">
             <g id="Layer_2" data-name="Layer 2">
               <g id="Layer_1-2" data-name="Layer 1">
@@ -158,7 +158,11 @@
   </div>
   <div id="info"></div>
   <div id="long-info"></div>
-  <button id="timeline-button">Timeline</button>
+  <div class="buttons">
+    <button id="museum-button">Current location</button>
+    <span id="button-separator">•</span>
+    <button id="timeline-button">Timeline</button>
+  </div>
 </body>
 <script src="dist/main.js"></script>
 

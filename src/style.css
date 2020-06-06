@@ -328,21 +328,28 @@ h1 {
   }
 }
 
-#timeline-button {
+.buttons {
   position: absolute;
   bottom: 16px;
   right: 24px;
+  display: flex;
 }
 
 @media (max-width: 720px) {
-  #timeline-button {
+  .buttons {
     right: auto;
     align-self: center;
     bottom: 8px;
   }
 }
 
-#timeline-button:hover {
+#button-separator {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+#timeline-button:hover,
+#museum-button:hover {
   background-color: #73ffad;
 }
 

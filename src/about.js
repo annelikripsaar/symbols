@@ -67,10 +67,26 @@ aboutSection.onclick = (event) => {
   aboutSection.style.display = "none";
 };
 
+document.querySelectorAll(".large-filter").forEach((filter) => {
+  filter.onclick = () => {
+    console.log("hello");
+    document.querySelectorAll(".showcase-item").forEach((showcaseItem) => {
+      showcaseItem.parentNode.removeChild(showcaseItem);
+    });
+
+    aboutButton.classList.remove("close-button");
+    aboutButton.textContent = "Tracing Ties";
+    aboutButton.onmouseenter = () => colorButton();
+    aboutButton.onmouseleave = () => removeButtonColor();
+    toggleBackgroundBlur();
+    aboutSection.style.display = "none";
+  };
+});
+
 export function toggleBackgroundBlur() {
   document
     .querySelectorAll(
-      ".floating-element, .tag, .filters, .scale-container, #timeline-button"
+      ".floating-element, .tag, .filters, .scale-container, .buttons"
     )
     .forEach(function (bgElement) {
       bgElement.classList.toggle("blur");
@@ -149,7 +165,7 @@ function initShowcaseItems(icon, idList) {
   };
 }
 
-function colorButton() {
+export function colorButton() {
   aboutButton.style.backgroundColor = "#73FFAD";
 }
 

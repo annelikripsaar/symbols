@@ -1,6 +1,11 @@
 import Panzoom from "@panzoom/panzoom";
 import { createElement } from "./utils";
-import { aboutSection, toggleBackgroundBlur, removeButtonColor } from "./about";
+import {
+  aboutSection,
+  toggleBackgroundBlur,
+  colorButton,
+  removeButtonColor,
+} from "./about";
 
 var activeElementContainer = document.getElementById("active-element");
 export var activeElement;
@@ -11,6 +16,7 @@ var aboutButton = document.querySelector("[data-name='about']");
 var footnoteContainer;
 var konvaStage;
 var timelineMode = false;
+var museumMode = false;
 
 window.addEventListener("mousemove", (e) => {
   if (footnoteContainer) {
@@ -107,12 +113,21 @@ export function run(items) {
   document.getElementById("timeline-button").onclick = () => {
     timelineMode = !timelineMode;
     if (timelineMode) {
+      document.getElementById("museum-button").style.display = "none";
+      if (museumMode) {
+        museumMode = !museumMode;
+        document.getElementById("museum-button").textContent =
+          "Current location";
+      }
+      document.getElementById("button-separator").style.display = "none";
       document.querySelectorAll(".floating-element").forEach((element) => {
         element.style.opacity = "0";
       });
       document.getElementById("timeline-button").textContent = "Map";
       setTimeout(() => positionElementsByAge(), ANIMATION_TIME * 2);
     } else {
+      document.getElementById("museum-button").style.display = "inline";
+      document.getElementById("button-separator").style.display = "inline";
       panzoomMap.setOptions({
         disableZoom: false,
         disablePan: false,
@@ -125,6 +140,32 @@ export function run(items) {
         container.classList.remove("timeline-layout");
         initializeItems(items);
       }, ANIMATION_TIME);
+    }
+  };
+
+  document.getElementById("museum-button").onclick = () => {
+    museumMode = !museumMode;
+    if (museumMode) {
+      document.getElementById("museum-button").textContent =
+        "Original location";
+      setTimeout(() => positionElementsByMuseum(items), ANIMATION_TIME * 2);
+    } else {
+      panzoomMap.setOptions({
+        disableZoom: false,
+        disablePan: false,
+      });
+
+      document.getElementById("museum-button").textContent = "Current location";
+      setTimeout(() => {
+        document.querySelectorAll(".floating-element").forEach((element) => {
+          positionElementByGroup(element, items[parseFloat(element.id)]);
+        });
+        //initializeItems(items);
+      }, ANIMATION_TIME);
+
+      document.querySelectorAll(".tag").forEach((tag) => {
+        tag.style.display = "block";
+      });
     }
   };
 
@@ -151,7 +192,7 @@ function initializeItems(items) {
   if (aboutSection.style.display === "block" || activeElement) {
     document
       .querySelectorAll(
-        ".floating-element, .tag, .filters, .scale-container, #timeline-button"
+        ".floating-element, .tag, .filters, .scale-container, .buttons"
       )
       .forEach(function (bgElement) {
         bgElement.classList.add("blur");
@@ -176,7 +217,7 @@ function initializeItems(items) {
 }
 
 function initFilters(items) {
-  var filters = document.querySelectorAll(".filter");
+  var filters = document.querySelectorAll(".filter, .large-filter");
   filters.forEach(function (filter) {
     filter.onclick = function () {
       filter.blur();
@@ -188,15 +229,34 @@ function initFilters(items) {
         items.forEach((item) => createItem(item, items));
       } else {
         resetAllFilters(filters);
-        filter.classList.add("active-filter");
+        document
+          .querySelectorAll("[data-name=" + filter.dataset.name + "]")
+          .forEach((filter) => {
+            filter.classList.add("active-filter");
+          });
 
         var filteredItems = items.filter(function (item) {
           var tags = item.tags.replace(" ", "").split(",");
-          return tags.includes(filter.id);
+          return tags.includes(filter.dataset.name);
         });
 
         addItemsToAreas(filteredItems, areas);
         filteredItems.forEach((item) => createItem(item, items));
+
+        if (aboutSection.style.display === "block") {
+          document
+            .querySelectorAll(".showcase-item")
+            .forEach((showcaseItem) => {
+              showcaseItem.parentNode.removeChild(showcaseItem);
+            });
+
+          aboutButton.classList.remove("close-button");
+          aboutButton.textContent = "Tracing Ties";
+          aboutButton.onmouseenter = () => colorButton();
+          aboutButton.onmouseleave = () => removeButtonColor();
+          toggleBackgroundBlur();
+          aboutSection.style.display = "none";
+        }
       }
     };
   });
@@ -491,6 +551,39 @@ function createTimeTags(element, id) {
   }
 }
 
+function positionElementsByMuseum(items) {
+  var elements = document.querySelectorAll(".floating-element");
+  elements.forEach((element) => {
+    let item = items[parseFloat(element.id)];
+    if (item.credit === "The Met") {
+      element.style.left = "15vw";
+      element.style.top = "35vh";
+    } else if (item.credit === "Victoria & Albert Museum") {
+      element.style.left = "40vw";
+      element.style.top = "27vh";
+    } else if (item.credit === "Estonian National Museum") {
+      element.style.left = "50vw";
+      element.style.top = "10vh";
+    } else if (item.credit === "Textile Museum of Canada") {
+      element.style.left = "20vw";
+      element.style.top = "15vh";
+    } else if (item.credit === "Saatse Seto Museum") {
+      element.style.left = "55vw";
+      element.style.top = "23vh";
+    } else if (item.credit === "The State Hermitage Museum") {
+      element.style.left = "65vw";
+      element.style.top = "10vh";
+    } else if (item.credit === "The David Collection") {
+      element.style.left = "35vw";
+      element.style.top = "5vh";
+    }
+  });
+
+  document.querySelectorAll(".tag").forEach((tag) => {
+    tag.style.display = "none";
+  });
+}
+
 function scrollHorizontally(e) {
   e = window.event || e;
   if (e.wheelDelta) {
@@ -525,7 +618,7 @@ function selectItem(element, item, items) {
   });
 
   document
-    .querySelectorAll(".floating-element, .tag, .filters, #timeline-button")
+    .querySelectorAll(".floating-element, .tag, .filters, .buttons")
     .forEach(function (bgElement) {
       bgElement.classList.add("blur");
     });
@@ -727,7 +820,7 @@ function removeCentered(element) {
   clearFootnote();
 
   document
-    .querySelectorAll(".floating-element, .tag, .filters, #timeline-button")
+    .querySelectorAll(".floating-element, .tag, .filters, .buttons")
     .forEach(function (bgElement) {
       bgElement.classList.remove("blur");
     });
