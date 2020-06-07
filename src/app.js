@@ -17,6 +17,7 @@ var footnoteContainer;
 var konvaStage;
 var timelineMode = false;
 var museumMode = false;
+let filteredItems = [];
 
 window.addEventListener("mousemove", (e) => {
   if (footnoteContainer) {
@@ -146,9 +147,14 @@ export function run(items) {
   document.getElementById("museum-button").onclick = () => {
     museumMode = !museumMode;
     if (museumMode) {
+      document.querySelectorAll(".tag").forEach((tag) => {
+        tag.parentElement.removeChild(tag);
+      });
       document.getElementById("museum-button").textContent =
         "Original location";
-      setTimeout(() => positionElementsByMuseum(items), ANIMATION_TIME * 2);
+      setTimeout(() => {
+        positionElementsByMuseum(items, filteredItems);
+      }, ANIMATION_TIME * 2);
     } else {
       panzoomMap.setOptions({
         disableZoom: false,
@@ -160,12 +166,17 @@ export function run(items) {
         document.querySelectorAll(".floating-element").forEach((element) => {
           positionElementByGroup(element, items[parseFloat(element.id)]);
         });
-        //initializeItems(items);
       }, ANIMATION_TIME);
 
-      document.querySelectorAll(".tag").forEach((tag) => {
-        tag.style.display = "block";
+      document.querySelectorAll(".museum-tag").forEach((tag) => {
+        tag.parentElement.removeChild(tag);
       });
+
+      if (filteredItems.length) {
+        addItemsToAreas(filteredItems, areas);
+      } else {
+        addItemsToAreas(items, areas);
+      }
     }
   };
 
@@ -222,11 +233,23 @@ function initFilters(items) {
     filter.onclick = function () {
       filter.blur();
       clearAreas();
-      clearAllItems();
       if (filter.classList.contains("active-filter")) {
         filter.classList.remove("active-filter");
-        addItemsToAreas(items, areas);
-        items.forEach((item) => createItem(item, items));
+        filteredItems = [];
+        if (!museumMode) {
+          addItemsToAreas(items, areas);
+          document.querySelectorAll(".floating-element").forEach((element) => {
+            element.style.opacity = "1";
+          });
+        } else {
+          document.querySelectorAll(".museum-tag").forEach((tag) => {
+            tag.parentElement.removeChild(tag);
+          });
+          createMuseumTags(items);
+          document.querySelectorAll(".floating-element").forEach((element) => {
+            element.style.opacity = "1";
+          });
+        }
       } else {
         resetAllFilters(filters);
         document
@@ -235,13 +258,39 @@ function initFilters(items) {
             filter.classList.add("active-filter");
           });
 
-        var filteredItems = items.filter(function (item) {
+        filteredItems = items.filter(function (item) {
           var tags = item.tags.replace(" ", "").split(",");
           return tags.includes(filter.dataset.name);
         });
 
-        addItemsToAreas(filteredItems, areas);
-        filteredItems.forEach((item) => createItem(item, items));
+        if (!museumMode) {
+          addItemsToAreas(filteredItems, areas);
+          document.querySelectorAll(".floating-element").forEach((element) => {
+            element.style.opacity = "1";
+          });
+          document.querySelectorAll(".floating-element").forEach((element) => {
+            let item = items[parseFloat(element.id)];
+            let tags = item.tags.replace(" ", "").split(",");
+            if (!tags.includes(filter.dataset.name)) {
+              element.style.opacity = "0";
+            }
+          });
+        } else {
+          document.querySelectorAll(".museum-tag").forEach((tag) => {
+            tag.parentElement.removeChild(tag);
+          });
+          createMuseumTags(filteredItems);
+          document.querySelectorAll(".floating-element").forEach((element) => {
+            element.style.opacity = "1";
+          });
+          document.querySelectorAll(".floating-element").forEach((element) => {
+            let item = items[parseFloat(element.id)];
+            let tags = item.tags.replace(" ", "").split(",");
+            if (!tags.includes(filter.dataset.name)) {
+              element.style.opacity = "0";
+            }
+          });
+        }
 
         if (aboutSection.style.display === "block") {
           document
@@ -551,36 +600,107 @@ function createTimeTags(element, id) {
   }
 }
 
-function positionElementsByMuseum(items) {
+function positionElementsByMuseum(items, filteredItems) {
   var elements = document.querySelectorAll(".floating-element");
   elements.forEach((element) => {
     let item = items[parseFloat(element.id)];
     if (item.credit === "The Met") {
-      element.style.left = "15vw";
-      element.style.top = "35vh";
+      element.style.left = "20vw";
+      element.style.top = "45vh";
     } else if (item.credit === "Victoria & Albert Museum") {
       element.style.left = "40vw";
-      element.style.top = "27vh";
+      element.style.top = "40vh";
     } else if (item.credit === "Estonian National Museum") {
       element.style.left = "50vw";
-      element.style.top = "10vh";
+      element.style.top = "15vh";
     } else if (item.credit === "Textile Museum of Canada") {
       element.style.left = "20vw";
-      element.style.top = "15vh";
+      element.style.top = "13vh";
     } else if (item.credit === "Saatse Seto Museum") {
       element.style.left = "55vw";
-      element.style.top = "23vh";
+      element.style.top = "34vh";
     } else if (item.credit === "The State Hermitage Museum") {
       element.style.left = "65vw";
-      element.style.top = "10vh";
+      element.style.top = "15vh";
     } else if (item.credit === "The David Collection") {
       element.style.left = "35vw";
-      element.style.top = "5vh";
+      element.style.top = "9vh";
+    } else if (item.credit === "American Folk Art Museum") {
+      element.style.left = "3vw";
+      element.style.top = "40vh";
     }
   });
 
-  document.querySelectorAll(".tag").forEach((tag) => {
-    tag.style.display = "none";
+  if (filteredItems.length) {
+    createMuseumTags(filteredItems);
+  } else {
+    createMuseumTags(items);
+  }
+}
+
+function createMuseumTags(items) {
+  let museumTags = [
+    {
+      name: "The Met",
+      left: "20vw",
+      top: "40vh",
+    },
+    {
+      name: "Victoria & Albert Museum",
+      left: "40vw",
+      top: "36vh",
+    },
+    {
+      name: "Estonian National Museum",
+      left: "50vw",
+      top: "10vh",
+    },
+    {
+      name: "Textile Museum of Canada",
+      left: "20vw",
+      top: "8vh",
+    },
+    {
+      name: "Saatse Seto Museum",
+      left: "55vw",
+      top: "30vh",
+    },
+    {
+      name: "The State Hermitage Museum",
+      left: "65vw",
+      top: "10vh",
+    },
+    {
+      name: "The David Collection",
+      left: "35vw",
+      top: "5vh",
+    },
+    {
+      name: "American Folk Art Museum",
+      left: "3vw",
+      top: "36vh",
+    },
+  ];
+
+  countMuseumItems(items, museumTags);
+
+  museumTags.forEach((tag) => {
+    const tagElement = createElement("p", {
+      textContent: tag.name + ": " + tag.count,
+      classList: ["museum-tag"],
+      style: {
+        left: tag.left,
+        top: tag.top,
+      },
+    });
+    document.getElementById("floating-elements").appendChild(tagElement);
+  });
+}
+
+function countMuseumItems(items, museums) {
+  museums.forEach((museum) => {
+    let museumItems = items.filter((item) => item.credit === museum.name);
+    museum.count = museumItems.length;
   });
 }
 
