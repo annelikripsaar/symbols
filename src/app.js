@@ -605,16 +605,16 @@ function positionElementsByMuseum(items, filteredItems) {
   elements.forEach((element) => {
     let item = items[parseFloat(element.id)];
     if (item.credit === "The Met") {
-      element.style.left = "20vw";
-      element.style.top = "45vh";
+      element.style.left = "7vw";
+      element.style.top = "40vh";
     } else if (item.credit === "Victoria & Albert Museum") {
-      element.style.left = "40vw";
+      element.style.left = "35vw";
       element.style.top = "40vh";
     } else if (item.credit === "Estonian National Museum") {
       element.style.left = "50vw";
       element.style.top = "15vh";
     } else if (item.credit === "Textile Museum of Canada") {
-      element.style.left = "20vw";
+      element.style.left = "17vw";
       element.style.top = "13vh";
     } else if (item.credit === "Saatse Seto Museum") {
       element.style.left = "55vw";
@@ -627,7 +627,7 @@ function positionElementsByMuseum(items, filteredItems) {
       element.style.top = "9vh";
     } else if (item.credit === "American Folk Art Museum") {
       element.style.left = "3vw";
-      element.style.top = "40vh";
+      element.style.top = "19vh";
     }
   });
 
@@ -642,12 +642,12 @@ function createMuseumTags(items) {
   let museumTags = [
     {
       name: "The Met",
-      left: "20vw",
-      top: "40vh",
+      left: "7vw",
+      top: "35vh",
     },
     {
       name: "Victoria & Albert Museum",
-      left: "40vw",
+      left: "35vw",
       top: "36vh",
     },
     {
@@ -657,7 +657,7 @@ function createMuseumTags(items) {
     },
     {
       name: "Textile Museum of Canada",
-      left: "20vw",
+      left: "17vw",
       top: "8vh",
     },
     {
@@ -678,7 +678,7 @@ function createMuseumTags(items) {
     {
       name: "American Folk Art Museum",
       left: "3vw",
-      top: "36vh",
+      top: "15vh",
     },
   ];
 
