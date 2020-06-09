@@ -240,6 +240,7 @@ function initFilters(items) {
           addItemsToAreas(items, areas);
           document.querySelectorAll(".floating-element").forEach((element) => {
             element.style.opacity = "1";
+            element.style.pointerEvents = "initial";
           });
         } else {
           document.querySelectorAll(".museum-tag").forEach((tag) => {
@@ -248,6 +249,7 @@ function initFilters(items) {
           createMuseumTags(items);
           document.querySelectorAll(".floating-element").forEach((element) => {
             element.style.opacity = "1";
+            element.style.pointerEvents = "initial";
           });
         }
       } else {
@@ -267,12 +269,14 @@ function initFilters(items) {
           addItemsToAreas(filteredItems, areas);
           document.querySelectorAll(".floating-element").forEach((element) => {
             element.style.opacity = "1";
+            element.style.pointerEvents = "initial";
           });
           document.querySelectorAll(".floating-element").forEach((element) => {
             let item = items[parseFloat(element.id)];
             let tags = item.tags.replace(" ", "").split(",");
             if (!tags.includes(filter.dataset.name)) {
               element.style.opacity = "0";
+              element.style.pointerEvents = "none";
             }
           });
         } else {
@@ -282,12 +286,14 @@ function initFilters(items) {
           createMuseumTags(filteredItems);
           document.querySelectorAll(".floating-element").forEach((element) => {
             element.style.opacity = "1";
+            element.style.pointerEvents = "initial";
           });
           document.querySelectorAll(".floating-element").forEach((element) => {
             let item = items[parseFloat(element.id)];
             let tags = item.tags.replace(" ", "").split(",");
             if (!tags.includes(filter.dataset.name)) {
               element.style.opacity = "0";
+              element.style.pointerEvents = "none";
             }
           });
         }
